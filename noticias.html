@@ -121,7 +121,15 @@
   @media (min-width: 780px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
   .news-card { border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
   .news-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 3px; margin-bottom: 14px; display: block; }
-  .news-card .date { font-size: 0.82rem; opacity: 0.6; margin-bottom: 8px; }
+  .news-card .date { font-size: 0.82rem; opacity: 0.6; margin-bottom: 0; }
+  .news-card { scroll-margin-top: 92px; }
+  .news-card .date-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .copy-link { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: none; background: transparent; color: var(--ink); opacity: 0.55; border-radius: 50%; cursor: pointer; }
+  .copy-link:hover, .copy-link:focus-visible { opacity: 1; color: var(--orange); }
+  .copy-link svg { width: 16px; height: 16px; }
+  .copy-msg { font-size: 0.78rem; font-weight: 600; color: var(--orange); }
+  .news-card:target { animation: flashCard 2.6s ease-out; }
+  @keyframes flashCard { 0%, 55% { outline: 2px solid var(--orange); outline-offset: 8px; } 100% { outline: 2px solid transparent; outline-offset: 8px; } }
   .news-card h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; line-height: 1.3; }
   .news-card p { font-size: 0.92rem; opacity: 0.8; margin: 0 0 10px; }
   .news-card details summary { cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--orange); list-style: none; }
@@ -215,9 +223,9 @@
 
 <main class="noticias-wrap">
   <div class="news-grid">
-    <div class="news-card">
+    <div class="news-card" id="2026-11-04-salas-de-estudio">
       <img src="img/noticias/2026-11-04-100x100-unidos-portuenses-propone-ampliar-salas.jpg" loading="lazy" alt="Representante de 100x100 Unidos Portuenses frente a un centro cívico de El Puerto de Santa María">
-      <div class="date">4 de noviembre de 2026</div>
+      <div class="date-row"><div class="date">4 de noviembre de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100x100 Unidos Portuenses propone ampliar las salas de estudio y crear nuevos espacios de trabajo colaborativo en El Puerto</h3>
       <p>Francisco Belaustegui: &#8220;No basta con mantener las salas que tenemos; hay que planificar su ampliación y adaptarlas a las necesidades reales de los estudiantes&#8221;.</p>
       <details>
@@ -233,9 +241,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-10-03-vallealto-el-tomillar">
       <img src="img/noticias/2026-10-03-100-100-unidos-portuenses-recoge-demandas.jpg" loading="lazy" alt="Integrantes de 100x100 Unidos Portuenses en Vallealto-El Tomillar">
-      <div class="date">3 de octubre de 2026</div>
+      <div class="date-row"><div class="date">3 de octubre de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100&times;100 Unidos Portuenses recoge las demandas de los vecinos de Vallealto-El Tomillar</h3>
       <p>Montse Pecho: &#8220;No estamos pidiendo nada excepcional: los vecinos quieren limpieza, seguridad, mantenimiento y unos espacios públicos cuidados&#8221;.</p>
       <details>
@@ -250,9 +258,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-10-01-poligonos">
       <img src="img/noticias/2026-10-01-100-100-unidos-portuenses-reclama-actuacion.jpg" loading="lazy" alt="Francisco Belaustegui en el polígono de El Palmar">
-      <div class="date">1 de octubre de 2026</div>
+      <div class="date-row"><div class="date">1 de octubre de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100&times;100 Unidos Portuenses reclama una actuación integral en los polígonos</h3>
       <p>Francisco Belaustegui: &#8220;No se trata solo de asfaltar y limpiar, sino de saber qué necesita cada calle y cuándo se va a actuar&#8221;.</p>
       <details>
@@ -267,9 +275,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-09-06-plan-de-barriadas">
       <img src="img/noticias/2026-09-06-100x100-unidos-portuenses-reclama-verdadero-plan.jpg" loading="lazy" alt="Estado del mantenimiento urbano en varias barriadas">
-      <div class="date">6 de septiembre de 2026</div>
+      <div class="date-row"><div class="date">6 de septiembre de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100x100 Unidos Portuenses reclama un verdadero Plan de Barriadas</h3>
       <p>"El vecino no debería tener que reclamar para que su barrio entre en la planificación municipal", señala Francisco Belaustegui.</p>
       <details>
@@ -286,9 +294,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-09-02-seguridad-ocio-nocturno">
       <img src="img/noticias/2026-09-02-100x100-unidos-portuenses-reclama-planificacion-real.jpg" loading="lazy" alt="Paco Belaustegui frente a la Jefatura de la Policía Local">
-      <div class="date">2 de septiembre de 2026</div>
+      <div class="date-row"><div class="date">2 de septiembre de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100x100 Unidos Portuenses reclama una planificación real de la seguridad ante la presión del ocio nocturno durante el verano</h3>
       <p>Paco Belaustegui: "No basta con decir cuántos policías hay en plantilla; necesitamos saber cuántos están realmente disponibles para cubrir cada turno y reforzar la seguridad cuando la ciudad lo necesita".</p>
       <details>
@@ -305,9 +313,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-07-02-refugios-climaticos">
       <img src="img/noticias/2026-07-02-100x100-unidos-portuenses-pide-activar-red.jpg" loading="lazy" alt="Refugio climático vegetal en parada de autobús">
-      <div class="date">2 de julio de 2026</div>
+      <div class="date-row"><div class="date">2 de julio de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100x100 Unidos Portuenses pide activar una red municipal de refugios climáticos ante las olas de calor</h3>
       <p>Francisco Belaustegui: "El Puerto no puede quedarse atrás cuando hablamos de proteger la salud de nuestros vecinos, especialmente de nuestros mayores y de las personas más vulnerables".</p>
       <details>
@@ -323,9 +331,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-06-28-ies-munoz-seca">
       <img src="img/noticias/2026-06-28-100x100-unidos-portuenses-lleva-pleno-ies.jpg" loading="lazy" alt="Javier Botella, portavoz de 100x100 Unidos Portuenses">
-      <div class="date">28 de junio de 2026</div>
+      <div class="date-row"><div class="date">28 de junio de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>100x100 Unidos Portuenses lleva a pleno que el IES Muñoz Seca no asuma los costes de la caída del muro</h3>
       <p>Javier Botella: "La comunidad educativa no puede pagar las consecuencias de unos daños que podrían estar relacionados con trabajos realizados durante la preparación de la Preferia".</p>
       <details>
@@ -343,9 +351,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-04-18-pacto-de-las-canteras">
       <img src="img/noticias/2026-04-18-pacto-canteras-union-portuense-puerto-100.jpg" loading="lazy" alt="Acuerdo Unión Portuense y El Puerto 100x100">
-      <div class="date">18 de abril de 2026</div>
+      <div class="date-row"><div class="date">18 de abril de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>«El Pacto de las Canteras»: Unión Portuense y El Puerto 100% alcanzan un acuerdo para reforzar el municipalismo</h3>
       <p>Unión Portuense y El Puerto 100×100 han alcanzado un acuerdo de colaboración política, el "Pacto de las Canteras", para reforzar el espacio municipalista en El Puerto y avanzar en una línea de trabajo conjunta centrada en los intereses de la ciudad.</p>
       <details>
@@ -359,9 +367,9 @@
         </div>
       </details>
     </div>
-    <div class="news-card">
+    <div class="news-card" id="2026-04-17-belaustegui-parlamento-andaluz">
       <img src="img/noticias/2026-04-17-francisco-belaustegui-referente-social-puerto-candidatura.jpg" loading="lazy" alt="Francisco Belaustegui">
-      <div class="date">17 de abril de 2026</div>
+      <div class="date-row"><div class="date">17 de abril de 2026</div><button type="button" class="copy-link" aria-label="Copiar enlace a esta noticia" title="Copiar enlace a esta noticia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button><span class="copy-msg" role="status"></span></div>
       <h3>Francisco Belaustegui, referente social de El Puerto, en la candidatura provincial de 100x100 Unidos al Parlamento andaluz</h3>
       <p>Belaustegui formará parte de la candidatura de 100x100 Unidos al Parlamento de Andalucía por la provincia de Cádiz, ocupando el número 4 en una lista que sitúa a El Puerto de Santa María en una posición destacada.</p>
       <details>
@@ -426,6 +434,34 @@
     navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
     navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ navLinks.classList.remove('open'); }); });
   }
+  (function () {
+    function openFromHash() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var card = id ? document.getElementById(id) : null;
+      if (!card || !card.classList.contains('news-card')) return;
+      var d = card.querySelector('details');
+      if (d) d.open = true;
+      card.scrollIntoView({ block: 'start' });
+    }
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+    document.querySelectorAll('.copy-link').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var card = btn.closest('.news-card');
+        var url = location.href.split('#')[0] + '#' + card.id;
+        var msg = card.querySelector('.copy-msg');
+        function ok() { msg.textContent = 'Enlace copiado'; setTimeout(function () { msg.textContent = ''; }, 1800); }
+        function fallback() {
+          var t = document.createElement('textarea'); t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
+          document.body.appendChild(t); t.select();
+          var done = false; try { done = document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(t);
+          if (done) ok(); else window.prompt('Copia este enlace:', url);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, fallback); else fallback();
+      });
+    });
+  })();
 </script>
 </body>
 </html>
