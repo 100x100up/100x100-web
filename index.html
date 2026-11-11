@@ -156,20 +156,6 @@
   .join .kicker { color: var(--orange); }
   .join-grid { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
   .join-grid p { opacity: 0.85; max-width: 42ch; }
-  form { display: grid; gap: 14px; }
-  form[hidden] { display: none; }
-  .form-row { display: grid; gap: 14px; }
-  @media (min-width: 560px) { .form-row.two { grid-template-columns: 1fr 1fr; } }
-  input, textarea {
-    width: 100%; padding: 12px 14px; border-radius: 3px; border: 1.5px solid var(--line);
-    background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.95rem;
-  }
-  input::placeholder, textarea::placeholder { color: color-mix(in srgb, var(--ink) 45%, transparent); }
-  textarea { min-height: 90px; resize: vertical; }
-  .hp { position: absolute; left: -9999px; top: -9999px; }
-  .consent { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; opacity: 0.85; }
-  .consent input { width: auto; margin-top: 3px; }
-  .join .btn-solid { justify-self: start; }
   .join .section-head { max-width: none; margin-bottom: 12px; }
   .join .kicker { margin-bottom: 6px; }
   .join .section-head p:not(.kicker) { margin: 8px 0 0; }
@@ -177,7 +163,6 @@
   .join-grid { gap: 0; }
   .join-cta { text-align: center; margin-top: 28px; }
   .join .countdown-box--plain { margin-top: 14px; padding: 18px 26px; }
-  #joinMsg { font-size: 0.9rem; margin-top: 4px; }
 
   footer { background: var(--navy); color: var(--on-navy); border-top: 1px solid rgba(242,237,227,0.15); }
   @media (max-width: 480px) {
@@ -387,26 +372,8 @@
     <div class="section-head">
       <p class="kicker">Únete al proyecto</p>
       <h2>Sé parte del cambio en <span style="color: var(--orange);">El Puerto de Santa María</span></h2>
-      <p><span hidden>Déjanos tus datos y forma parte de un proyecto hecho por portuenses. </span>Cada vecino suma, cada idea cuenta.</p>
+      <p>Cada vecino suma, cada idea cuenta.</p>
     </div>
-    <form id="joinForm" hidden>
-      <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" placeholder="No rellenes esto">
-      <div class="form-row two">
-        <input type="text" name="nombre" placeholder="Nombre" required>
-        <input type="text" name="apellidos" placeholder="Apellidos" required>
-      </div>
-      <div class="form-row two">
-        <input type="tel" name="telefono" placeholder="Teléfono">
-        <input type="email" name="email" placeholder="Correo electrónico" required>
-      </div>
-      <textarea name="mensaje" placeholder="¿Cómo mejorarías El Puerto?"></textarea>
-      <label class="consent">
-        <input type="checkbox" required>
-        He leído y acepto la Política de Privacidad y el Aviso Legal.
-      </label>
-      <button type="submit" class="btn btn-solid">Quiero participar</button>
-      <div id="joinMsg"></div>
-    </form>
   </div>
   <div class="countdown-box countdown-box--plain">
     <div class="label">Elecciones Municipales</div>
@@ -478,34 +445,6 @@
     }
     tick(); setInterval(tick, 1000);
   })();
-
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwtoQE2FHnlMJGb6QbEwuazd4-X1r5H2lqh3bQk4O0MEGZGlpPWwG-4fzQo1xNOLQdx/exec';
-
-  var form = document.getElementById('joinForm');
-  var msg = document.getElementById('joinMsg');
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var hp = form.querySelector('.hp').value;
-    if (hp) { return; }
-
-    if (ENDPOINT.indexOf('PEGA_AQUI') !== -1) {
-      msg.textContent = 'Formulario listo, pero aún sin conectar: falta pegar la URL de Google Apps Script.';
-      msg.style.color = '#EB6411';
-      return;
-    }
-
-    var data = new FormData(form);
-    fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: data })
-      .then(function(){
-        msg.textContent = 'Gracias, hemos recibido tus datos.';
-        msg.style.color = '#EB6411';
-        form.reset();
-      })
-      .catch(function(){
-        msg.textContent = 'No se ha podido enviar. Inténtalo de nuevo en unos minutos.';
-        msg.style.color = '#EB6411';
-      });
-  });
 </script>
 
 

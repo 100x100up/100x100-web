@@ -136,6 +136,9 @@
   .news-card details summary::-webkit-details-marker { display: none; }
   .news-card details[open] summary { margin-bottom: 10px; }
   .news-card details .full p { opacity: 0.9; margin: 0 0 10px; }
+  .news-card details.has-close[open] > summary { display: none; }
+  .news-card .read-less { cursor: pointer; border: none; background: transparent; padding: 0; margin: 0; font-family: inherit; font-size: 0.88rem; font-weight: 600; color: var(--orange); }
+  .news-card .read-less:hover, .news-card .read-less:focus-visible { text-decoration: underline; }
 
   .join { background: var(--navy); color: var(--on-navy); }
   .join .section-head h2 { color: var(--on-navy); }
@@ -451,6 +454,25 @@
     navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
     navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ navLinks.classList.remove('open'); }); });
   }
+  (function () {
+    document.querySelectorAll('.news-card details').forEach(function (d) {
+      var full = d.querySelector('.full');
+      if (!full) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'read-less';
+      btn.textContent = 'Leer menos';
+      btn.addEventListener('click', function () {
+        d.open = false;
+        var summary = d.querySelector('summary');
+        if (summary) summary.focus({ preventScroll: true });
+        var card = d.closest('.news-card');
+        if (card) card.scrollIntoView({ block: 'start' });
+      });
+      full.appendChild(btn);
+      d.classList.add('has-close');
+    });
+  })();
   (function () {
     function openFromHash() {
       var id = decodeURIComponent(location.hash.slice(1));
