@@ -152,11 +152,11 @@
   .news-card details .full p { opacity: 0.9; margin: 0 0 10px; }
   .news-card { scroll-margin-top: 92px; }
   /* Recuadro naranja al pasar el ratón por encima (no abre la noticia).
-     Aparece, se mantiene un instante y se desvanece solo (1 s) aunque el ratón siga encima.
-     No se muestra si la noticia está abierta ("Leer más") ni durante el efecto del enlace directo. */
+     Aparece con fundido de 1 s, se mantiene 0,4 s y se desvanece con fundido de 1 s (2,4 s en total) aunque el ratón siga encima.
+     Si hay alguna noticia abierta ("Leer más"), no sale en ninguna tarjeta; tampoco durante el efecto del enlace directo. */
   .news-card { outline: 2px solid transparent; outline-offset: 8px; }
-  @keyframes hoverFrame { 0% { outline-color: transparent; } 8% { outline-color: var(--orange); } 58% { outline-color: var(--orange); } 100% { outline-color: transparent; } }
-  @media (hover: hover) { .news-card:not(:target):not(:has(details[open])):hover { animation: hoverFrame 2.4s ease-out; } }
+  @keyframes hoverFrame { 0% { outline-color: transparent; } 41.67% { outline-color: var(--orange); } 58.33% { outline-color: var(--orange); } 100% { outline-color: transparent; } }
+  @media (hover: hover) { body:not(:has(.news-card details[open])) .news-card:not(:target):hover { animation: hoverFrame 2.4s ease-out; } }
   .news-card details.has-close[open] > summary { display: none; }
   .news-card .read-less { cursor: pointer; border: none; background: transparent; padding: 0; margin: 0; font-family: inherit; font-size: 0.88rem; font-weight: 600; color: var(--orange); }
   .news-card .read-less:hover, .news-card .read-less:focus-visible { text-decoration: underline; }
