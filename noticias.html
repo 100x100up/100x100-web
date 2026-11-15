@@ -123,6 +123,9 @@
   .news-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 3px; margin-bottom: 14px; display: block; }
   .news-card .date { font-size: 0.82rem; opacity: 0.6; margin-bottom: 0; }
   .news-card { scroll-margin-top: 92px; }
+  /* Recuadro naranja al pasar el ratón por encima (no abre la noticia) */
+  .news-card { outline: 2px solid transparent; outline-offset: 8px; transition: outline-color 0.2s ease; }
+  @media (hover: hover) { .news-card:hover { outline-color: var(--orange); } }
   .news-card .date-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
   .copy-link { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: none; background: transparent; color: var(--ink); opacity: 0.55; border-radius: 50%; cursor: pointer; }
   .copy-link:hover, .copy-link:focus-visible { opacity: 1; color: var(--orange); }

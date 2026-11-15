@@ -151,6 +151,9 @@
   .news-card details[open] summary { margin-bottom: 10px; }
   .news-card details .full p { opacity: 0.9; margin: 0 0 10px; }
   .news-card { scroll-margin-top: 92px; }
+  /* Recuadro naranja al pasar el ratón por encima (no abre la noticia) */
+  .news-card { outline: 2px solid transparent; outline-offset: 8px; transition: outline-color 0.2s ease; }
+  @media (hover: hover) { .news-card:hover { outline-color: var(--orange); } }
   .news-card details.has-close[open] > summary { display: none; }
   .news-card .read-less { cursor: pointer; border: none; background: transparent; padding: 0; margin: 0; font-family: inherit; font-size: 0.88rem; font-weight: 600; color: var(--orange); }
   .news-card .read-less:hover, .news-card .read-less:focus-visible { text-decoration: underline; }
