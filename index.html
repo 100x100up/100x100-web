@@ -51,8 +51,9 @@
   .btn-outline { border-color: var(--ink); }
 
   header {
-    position: sticky; top: 0; top: env(safe-area-inset-top, 0px); z-index: 20;
+    position: fixed; top: 0; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 20;
     background: var(--paper); border-bottom: 1px solid var(--line);
+    transition: background-color 0.35s ease, border-color 0.35s ease;
   }
   .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
   .brand { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.02em; }
@@ -78,15 +79,30 @@
   }
   nav.links.open a { padding: 10px 0; border-bottom: 1px solid var(--line); }
 
+  /* Cabecera transparente con letras y logo blancos cuando la página está arriba del todo
+     (clase "over-hero" que pone el script del final). Al hacer scroll vuelve al estado normal. */
+  .nav .brand { position: relative; display: block; }
+  .nav .brand img { transition: opacity 0.35s ease; }
+  .nav .brand img.logo-blanco { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; pointer-events: none; }
+  nav.links a { transition: color 0.35s ease, border-color 0.2s ease; }
+  .nav-toggle span { transition: background-color 0.35s ease; }
+  header.over-hero:not(.menu-open) { background: transparent; border-bottom-color: transparent; }
+  header.over-hero:not(.menu-open) .brand img.logo-color { opacity: 0; }
+  header.over-hero:not(.menu-open) .brand img.logo-blanco { opacity: 1; }
+  header.over-hero:not(.menu-open) nav.links a { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+  header.over-hero:not(.menu-open) nav.links a:hover { border-color: #fff; }
+  header.over-hero:not(.menu-open) .nav-toggle span { background: #fff; }
+
   .hero {
-    padding: 72px 24px 40px;
+    padding: calc(72px + 70px) 24px 40px; /* 70px = altura aproximada de la cabecera, que ahora va encima de la foto */
     background:
+      linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0) 150px), /* sombra suave arriba para leer el menú blanco */
       linear-gradient(color-mix(in srgb, var(--orange) 46%, transparent), color-mix(in srgb, var(--orange) 46%, transparent)),
       url("img/castillo.jpg") center 17% / cover no-repeat;
   }
   .hero-grid { display: grid; gap: 40px; max-width: 1120px; margin: 0 auto; }
   @media (min-width: 1100px) {
-    .hero { min-height: min(38vw, 700px); display: flex; align-items: center; }
+    .hero { min-height: calc(min(38vw, 700px) + 70px); display: flex; align-items: center; }
     .hero-grid { width: 100%; }
   }
   @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.3fr 0.9fr; align-items: end; } }
@@ -218,7 +234,7 @@
 
 <header>
   <div class="nav">
-    <a href="#" class="brand"><img src="img/logo-cabecera.png" alt="100x100 Unidos Portuenses"></a>
+    <a href="#" class="brand"><img class="logo-color" src="img/logo-cabecera.png" alt="100x100 Unidos Portuenses"><img class="logo-blanco" src="img/logo-faldon.png" alt="" aria-hidden="true"></a>
     <nav class="links">
       <a href="#proyecto">El proyecto</a>
       <a href="#ideario">Ideario</a>
@@ -485,12 +501,18 @@
 <script>
   var navToggle = document.getElementById('navToggle');
   var navLinks = document.querySelector('nav.links');
+  var siteHeader = document.querySelector('header');
   navToggle.addEventListener('click', function(){
     navLinks.classList.toggle('open');
+    siteHeader.classList.toggle('menu-open', navLinks.classList.contains('open'));
   });
   navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); siteHeader.classList.remove('menu-open'); });
   });
+  /* Cabecera transparente solo cuando la página está en lo más alto */
+  function updateHeader(){ siteHeader.classList.toggle('over-hero', window.scrollY < 8); }
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 </script>
 </body>
 </html>
