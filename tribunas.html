@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Tribunas de opinión | 100x100 Unidos Portuenses</title>
+<meta name="description" content="Tribunas de opinión de 100x100 Unidos Portuenses publicadas en los medios locales de El Puerto de Santa María.">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 300; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-300.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-600.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 900; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-900.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 500; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-500italic.woff2') format('woff2'); }
+  @font-face { font-family: 'Work Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/work-sans-v24-latin_latin-ext-regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Work Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/work-sans-v24-latin_latin-ext-500.woff2') format('woff2'); }
+  @font-face { font-family: 'Work Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/work-sans-v24-latin_latin-ext-600.woff2') format('woff2'); }
+
+  :root {
+    --ink: #1B1B1B;
+    --paper: #F7F6F2;
+    --paper-alt: #EFE6D8;
+    --orange: #EB6411;
+    --orange-dark: #C7530C;
+    --navy: #16323A;
+    --line: #DBD2C2;
+    --on-navy: #F2EDE3;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: 'Work Sans', system-ui, sans-serif; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .brand { font-family: 'Fraunces', Georgia, serif; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .btn {
+    display: inline-block; padding: 13px 26px; border-radius: 3px; font-weight: 600;
+    text-decoration: none; font-size: 0.95rem; border: 1.5px solid transparent; cursor: pointer;
+  }
+  .btn-solid { background: var(--orange); color: #fff; }
+  .btn-solid:hover { background: var(--orange-dark); }
+  .btn-outline { border-color: var(--ink); }
+
+  header {
+    position: sticky; top: 0; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+  .brand { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.02em; }
+  .brand img { height: auto; width: min(300px, calc(100vw - 130px)); display: block; }
+  @media (min-width: 860px) { .brand img { width: clamp(240px, 27vw, 340px); } }
+  .foot-brand .brand img { height: auto; width: min(340px, 100%); }
+  .brand span { color: var(--orange); }
+  nav.links { display: none; gap: 28px; font-size: 0.92rem; font-weight: 500; }
+  nav.links a { text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; }
+  nav.links a:hover { border-color: var(--orange); }
+  @media (min-width: 900px) { nav.links { display: flex; } }
+  .nav-toggle {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; border: none; background: none; cursor: pointer; padding: 0;
+  }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); }
+  @media (min-width: 900px) { .nav-toggle { display: none; } }
+  nav.links.open {
+    display: flex; flex-direction: column; gap: 4px;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 8px 24px 20px;
+  }
+  nav.links.open a { padding: 10px 0; border-bottom: 1px solid var(--line); }
+
+  .hero { padding: 72px 24px 40px; }
+  .hero-grid { display: grid; gap: 40px; max-width: 1120px; margin: 0 auto; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.3fr 0.9fr; align-items: end; } }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.05; font-weight: 900; margin: 0 0 20px; letter-spacing: -0.01em; }
+  .hero p.lede { font-size: 1.15rem; max-width: 46ch; opacity: 0.85; margin: 0 0 28px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .countdown-box { border: 1.5px solid var(--line); border-radius: 4px; padding: 26px; }
+  .countdown-box .label { font-size: 0.8rem; opacity: 0.65; margin-bottom: 4px; }
+  .countdown-box .place { font-weight: 600; margin-bottom: 18px; }
+  .countdown-nums { display: flex; gap: 18px; }
+  .countdown-nums div { text-align: left; }
+  .countdown-nums .n { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.1rem; color: var(--orange); line-height: 1; }
+  .countdown-nums .u { font-size: 0.72rem; opacity: 0.65; text-transform: lowercase; }
+
+  hr.rule { border: none; border-top: 1px solid var(--line); margin: 0; }
+
+  section { padding: 76px 24px; }
+  .section-head { max-width: 640px; margin-bottom: 44px; }
+  .kicker { font-weight: 600; color: var(--orange); margin: 0 0 8px; font-size: 0.95rem; }
+  .section-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); margin: 0; font-weight: 600; }
+
+  .project-grid { display: grid; gap: 44px; max-width: 1120px; margin: 0 auto; align-items: center; }
+  @media (min-width: 880px) { .project-grid { grid-template-columns: 0.9fr 1.1fr; } }
+  .project-grid p { max-width: 54ch; }
+  .philosophy-title { font-weight: 600; font-size: 0.85rem; text-transform: none; opacity: 0.6; margin: 26px 0 4px; }
+  .philosophy-item { margin: 14px 0; padding-left: 16px; border-left: 2px solid var(--orange); }
+  .philosophy-item h3 { font-style: italic; font-weight: 500; font-size: 1.15rem; margin: 0 0 4px; }
+  .philosophy-item p { margin: 0; opacity: 0.85; font-size: 0.96rem; }
+  .harbor-art { width: 100%; height: auto; }
+
+  .values-alt { background: var(--paper-alt); }
+  .values-list { max-width: 1120px; margin: 0 auto; display: grid; gap: 0; }
+  @media (min-width: 780px) { .values-list { grid-template-columns: repeat(3, 1fr); } }
+  .value-item { padding: 28px 0; border-top: 1px solid var(--line); }
+  @media (min-width: 780px) { .value-item { border-top: none; border-left: 1px solid var(--line); padding: 0 32px; } .value-item:first-child { border-left: none; padding-left: 0; } }
+  .value-item h3 { font-style: italic; font-weight: 500; font-size: 1.3rem; margin: 0 0 10px; }
+  .value-item p { margin: 0; opacity: 0.85; font-size: 0.98rem; }
+
+  .news-grid { max-width: 1120px; margin: 0 auto; display: grid; gap: 34px; }
+  @media (min-width: 780px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
+  .news-card { border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
+  .news-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 3px; margin-bottom: 14px; display: block; }
+  .news-card .date { font-size: 0.82rem; opacity: 0.6; margin-bottom: 8px; }
+  .news-card h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; line-height: 1.3; }
+  .news-card p { font-size: 0.92rem; opacity: 0.8; margin: 0 0 10px; }
+  .news-card details summary { cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--orange); list-style: none; }
+  .news-card details summary::-webkit-details-marker { display: none; }
+  .news-card details[open] summary { margin-bottom: 10px; }
+  .news-card details .full p { opacity: 0.9; margin: 0 0 10px; }
+
+  .join { background: var(--navy); color: var(--on-navy); }
+  .join .section-head h2 { color: var(--on-navy); }
+  .join .kicker { color: var(--orange); }
+  .join-grid { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
+  @media (min-width: 880px) { .join-grid { grid-template-columns: 1fr 1.1fr; } }
+  .join-grid p { opacity: 0.85; max-width: 42ch; }
+  form { display: grid; gap: 14px; }
+  .form-row { display: grid; gap: 14px; }
+  @media (min-width: 560px) { .form-row.two { grid-template-columns: 1fr 1fr; } }
+  input, textarea {
+    width: 100%; padding: 12px 14px; border-radius: 3px; border: 1.5px solid rgba(242,237,227,0.3);
+    background: rgba(242,237,227,0.06); color: var(--on-navy); font-family: inherit; font-size: 0.95rem;
+  }
+  input::placeholder, textarea::placeholder { color: rgba(242,237,227,0.5); }
+  textarea { min-height: 90px; resize: vertical; }
+  .hp { position: absolute; left: -9999px; top: -9999px; }
+  .consent { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; opacity: 0.85; }
+  .consent input { width: auto; margin-top: 3px; }
+  .join .btn-solid { justify-self: start; }
+  #joinMsg { font-size: 0.9rem; margin-top: 4px; }
+
+  footer { background: var(--navy); color: var(--on-navy); border-top: 1px solid rgba(242,237,227,0.15); }
+  .foot-grid {
+    max-width: 1120px; margin: 0 auto; padding: 56px 24px 28px; display: grid; gap: 22px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "brand" "contact" "nav";
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .foot-grid { gap: 36px; grid-template-columns: 1.2fr 1fr 1fr; grid-template-areas: "brand nav contact"; }
+  }
+  .foot-brand { grid-area: brand; }
+  .foot-nav { grid-area: nav; }
+  .foot-contact { grid-area: contact; }
+  .foot-grid h4 { margin: 0 0 14px; font-size: 0.85rem; opacity: 0.7; font-weight: 500; }
+  .foot-grid ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .foot-grid a { text-decoration: none; font-size: 0.95rem; }
+  .foot-grid a:hover { color: var(--orange); }
+  .foot-nav ul { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+  .foot-contact .email-line a { font-size: clamp(0.7rem, 3.7vw, 0.95rem); overflow-wrap: anywhere; }
+  @media (min-width: 960px) { .foot-contact .email-line a { font-size: 0.85rem; } }
+  .foot-social { display: flex; gap: 16px; margin-top: 16px; }
+  .foot-social a { color: #fff; opacity: 0.9; display: inline-flex; }
+  .foot-social a:hover { opacity: 1; color: var(--orange); }
+  .foot-social svg { width: 20px; height: 20px; }
+  .foot-contact .email-line { display: flex; align-items: center; gap: 8px; }
+  .foot-contact .email-line svg { width: 16px; height: 16px; flex-shrink: 0; color: #fff; opacity: 0.85; }
+  .foot-contact .btn-solid { margin-top: 4px; display: inline-block; padding: 10px 18px; font-size: 0.9rem; }
+  .foot-bottom { border-top: 1px solid rgba(242,237,227,0.15); padding: 18px 24px; font-size: 0.82rem; opacity: 0.7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; max-width: 1120px; margin: 0 auto; }
+  .foot-bottom { border-top: 1px solid rgba(242,237,227,0.15); padding: 18px 24px; font-size: 0.82rem; opacity: 0.7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; max-width: 1120px; margin: 0 auto; }
+</style>
+
+<style>
+  /* Cabecera de la sección */
+  .cabecera-tribunas { text-align: center; padding: 60px 20px; background: #fff; border-bottom: 1px solid var(--line); }
+  .cabecera-tribunas h1 { font-size: clamp(2rem, 4.6vw, 2.8rem); font-weight: 600; line-height: 1.12; margin: 0 0 15px; }
+  .cabecera-tribunas p { font-size: 1.15rem; opacity: 0.7; max-width: 600px; margin: 0 auto; }
+
+  /* Rejilla simétrica: tarjetas del mismo ancho y, en cada fila, de la misma altura */
+  .grid-tribunas { max-width: 1120px; margin: 50px auto 84px; padding: 0 24px; display: grid; grid-template-columns: 1fr; gap: 30px; }
+  @media (min-width: 700px)  { .grid-tribunas { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1020px) { .grid-tribunas { grid-template-columns: repeat(3, 1fr); } }
+
+  /* Tarjeta tipo revista */
+  .tribuna {
+    position: relative; display: flex; flex-direction: column; padding: 30px;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  /* Elevación y borde naranja al pasar el ratón o enfocar con el teclado */
+  .tribuna:hover, .tribuna:focus-within { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); border-color: var(--orange); }
+  @media (prefers-reduced-motion: reduce) { .tribuna { transition: none; } .tribuna:hover, .tribuna:focus-within { transform: none; } }
+
+  .tribuna--crema { background: var(--paper-alt); border-color: var(--paper-alt); } /* tarjeta crema */
+
+  /* Comillas decorativas de fondo */
+  .tribuna::before { content: '\201C'; position: absolute; top: 10px; left: 20px; z-index: 0; font-family: 'Fraunces', Georgia, serif; font-weight: 900; font-size: 4rem; line-height: 1; color: var(--paper-alt); }
+  .tribuna--crema::before { color: #e0cfb6; }
+
+  /* Fecha flotante sobre el borde superior */
+  .fecha-flotante { position: absolute; top: -12px; right: 20px; z-index: 2; padding: 4px 10px; border-radius: 20px; background: var(--orange); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }
+
+  /* Autor (arriba) */
+  .meta-cabecera { position: relative; z-index: 1; display: flex; align-items: center; margin-bottom: 20px; }
+  .avatar-autor { position: relative; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; margin-right: 12px; border-radius: 50%; overflow: hidden; background: var(--orange); color: #fff; font-weight: 700; font-size: 1.1rem; }
+  .avatar-autor img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; } /* si la foto no carga, se ven las iniciales */
+  .datos-autor { display: flex; flex-direction: column; line-height: 1.3; }
+  .nombre-autor { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+  .cargo-autor { font-size: 0.85rem; opacity: 0.65; }
+
+  /* Titular y resumen */
+  .titular-tribuna { position: relative; z-index: 1; margin: 0 0 15px; font-size: 1.4rem; font-weight: 600; line-height: 1.3; }
+  .resumen-tribuna { position: relative; z-index: 1; flex-grow: 1; margin: 0 0 25px; font-size: 0.95rem; opacity: 0.8; } /* flex-grow: empuja el medio y el enlace al fondo */
+
+  /* Medio (abajo) y enlace */
+  .publicado-en { position: relative; z-index: 1; margin: 0 0 6px; font-size: 0.85rem; opacity: 0.65; }
+  .btn-leer { align-self: flex-start; display: inline-block; padding: 8px 0; color: var(--orange-dark); font-weight: 600; font-size: 0.95rem; text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.2s ease, padding-right 0.2s ease; }
+  .btn-leer .flecha { display: inline-block; transition: transform 0.25s ease; }
+  .tribuna:hover .btn-leer, .btn-leer:focus-visible { border-bottom-color: var(--orange); padding-right: 5px; }
+  .tribuna:hover .btn-leer .flecha, .btn-leer:focus-visible .flecha { transform: translateX(3px); }
+  .btn-leer:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="brand"><img src="img/logo-cabecera.png" alt="100x100 Unidos Portuenses"></a>
+    <nav class="links">
+      <a href="index.html#proyecto">El proyecto</a>
+      <a href="ideario.html">Ideario</a>
+      <a href="index.html#noticias">Noticias</a>
+      <a href="#">Tribunas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="index.html#unete">Participa</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Abrir menú" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="cabecera-tribunas">
+  <h1>Tribunas de Opinión</h1>
+  <p>Nuestros análisis, propuestas y reflexiones sobre el modelo de ciudad que queremos para El Puerto de Santa María, publicados en medios de comunicación.</p>
+</section>
+
+<main class="grid-tribunas">
+    <!-- ==========================================================================
+         TRIBUNAS · CÓMO AÑADIR O CAMBIAR UNA
+         Las tarjetas de abajo son las tribunas reales, ordenadas de la más reciente a la más antigua.
+         Para añadir una tribuna copia un bloque <article class="tribuna"> completo y cambia
+         (todos los textos están en el bloque que copias):
+           1) Fecha (etiqueta flotante)       -> <time class="fecha-flotante" datetime="AAAA-MM-DD"> y el texto visible
+           2) Autor, iniciales y cargo        -> class="avatar-autor", "nombre-autor" y "cargo-autor"
+              Foto miniatura: carpeta img/tribunas/, un archivo por autor (p. ej. img/tribunas/eva-martinez.jpg),
+              escrito en el src del <img> dentro de class="avatar-autor". Si la foto no existe se ven las iniciales.
+           3) Titular                         -> <h2 class="titular-tribuna">
+           4) Resumen de 2-3 líneas           -> <p class="resumen-tribuna">
+           5) Medio donde se publicó          -> <em> dentro de <p class="publicado-en">
+           6) Enlace al artículo original     -> href del enlace class="btn-leer"
+         Pon las más recientes primero. Las tarjetas se colocan en filas simétricas de 3 columnas
+         (2 en tableta y 1 en móvil) y en cada fila todas miden lo mismo de alto.
+         Color de la tarjeta: class="tribuna" (blanca) o class="tribuna tribuna--crema" (crema); conviene alternarlas.
+         Si de una tribuna aún no tienes el enlace, deja su bloque class="btn-leer" comentado (entre los signos de comentario de HTML) hasta tenerlo.
+         ========================================================================== -->
+
+      <article class="tribuna tribuna--crema">
+        <time class="fecha-flotante" datetime="2026-11-06">06 Nov 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/javier-ramirez.jpg" alt="" loading="lazy" onerror="this.remove()">JR</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Javier Ramírez</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">Decidir escuchando</h2>
+        <p class="resumen-tribuna">Reflexión sobre la importancia de la participación ciudadana real en la gestión municipal y la escucha activa a pie de calle.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/decidir-escuchando/202611061104533528514.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna">
+        <time class="fecha-flotante" datetime="2026-10-23">23 Oct 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/francisco-belaustegui.jpg" alt="" loading="lazy" onerror="this.remove()">FB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Francisco Belaustegui</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">El Puerto eres tú</h2>
+        <p class="resumen-tribuna">Apunte sobre el compromiso individual y colectivo para transformar la ciudad desde el municipalismo cercano.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/el-puerto-eres-tu/202610231305143515885.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna tribuna--crema">
+        <time class="fecha-flotante" datetime="2026-10-09">09 Oct 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/javier-botella.jpg" alt="" loading="lazy" onerror="this.remove()">JB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Javier Botella</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">El Mundialito de Beardo</h2>
+        <p class="resumen-tribuna">Análisis crítico sobre las prioridades de gestión del equipo de gobierno local frente a los verdaderos problemas de los barrios.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/mundialito-beardo/202610091211493502298.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna">
+        <time class="fecha-flotante" datetime="2026-09-25">25 Sep 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/eva-martinez.jpg" alt="" loading="lazy" onerror="this.remove()">EM</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Eva Martínez</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">Entre el autobombo y la realidad</h2>
+        <p class="resumen-tribuna">Crítica al contraste entre la propaganda institucional del equipo de gobierno y los problemas reales y cotidianos que sufren los vecinos en los barrios.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/entre-autobombo-realidad/202609251148093488132.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna tribuna--crema">
+        <time class="fecha-flotante" datetime="2026-09-11">11 Sep 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/francisco-belaustegui.jpg" alt="" loading="lazy" onerror="this.remove()">FB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Francisco Belaustegui</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">100x100 con Ceuta</h2>
+        <p class="resumen-tribuna">Artículo de solidaridad y visión municipalista compartida con los retos de otras ciudades autónomas y territorios hermanos.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/100x100-con-ceuta/202609111051493474178.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna">
+        <time class="fecha-flotante" datetime="2026-07-31">31 Jul 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/francisco-belaustegui.jpg" alt="" loading="lazy" onerror="this.remove()">FB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Francisco Belaustegui</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">La fuerza del equipo</h2>
+        <p class="resumen-tribuna">Reflexión sobre la importancia del trabajo colectivo, la unión y la constancia de un proyecto político formado por personas comprometidas con El Puerto.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/fuerza-equipo/202607311154523446240.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna tribuna--crema">
+        <time class="fecha-flotante" datetime="2026-07-03">03 Jul 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/francisco-belaustegui.jpg" alt="" loading="lazy" onerror="this.remove()">FB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Francisco Belaustegui</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">Los juzgados: promesas, retrasos y preguntas sin responder</h2>
+        <p class="resumen-tribuna">Reclamación y análisis sobre el estado de las infraestructuras judiciales en la ciudad y la necesidad de dotarlas de los recursos que merecen los portuenses.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/juzgados-promesas-retrasos-preguntas-responder/202607031027023420792.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna">
+        <time class="fecha-flotante" datetime="2026-06-19">19 Jun 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/javier-ramirez.jpg" alt="" loading="lazy" onerror="this.remove()">JR</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Javier Ramírez</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">La educación pública que incluso paga muros</h2>
+        <p class="resumen-tribuna">Crítica y defensa de los recursos destinados a la enseñanza pública y las infraestructuras educativas en nuestra localidad.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/educacion-publica-que-incluso-paga-muros/202606191000463407311.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna tribuna--crema">
+        <time class="fecha-flotante" datetime="2026-05-22">22 May 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/javier-botella.jpg" alt="" loading="lazy" onerror="this.remove()">JB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Javier Botella</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">Más municipalismo</h2>
+        <p class="resumen-tribuna">Exposición sobre la necesidad de descentralizar la política y poner el foco en la gestión útil desde los ayuntamientos.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/mas-municipalismo/202605221039173390662.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna">
+        <time class="fecha-flotante" datetime="2026-05-08">08 May 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/francisco-belaustegui.jpg" alt="" loading="lazy" onerror="this.remove()">FB</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Francisco Belaustegui</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">100x100 unidos para priorizar a El Puerto</h2>
+        <p class="resumen-tribuna">Declaración de intenciones y principios sobre el nacimiento y la razón de ser de la formación: poner los intereses de la ciudad por encima de las siglas partidistas.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/100x100-unidos-priorizar-puerto/202605081152043256032.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="tribuna tribuna--crema">
+        <time class="fecha-flotante" datetime="2026-05-08">08 May 2026</time>
+        <div class="meta-cabecera">
+          <div class="avatar-autor" aria-hidden="true"><img src="img/tribunas/montse-pecho.jpg" alt="" loading="lazy" onerror="this.remove()">MP</div>
+          <div class="datos-autor">
+            <span class="nombre-autor">Montse Pecho</span>
+            <span class="cargo-autor">100x100 Unidos Portuenses</span>
+          </div>
+        </div>
+        <h2 class="titular-tribuna">Cuando El Puerto se une, El Puerto cambia</h2>
+        <p class="resumen-tribuna">Manifiesto sobre la unión de los portuenses en torno a un proyecto independiente y de futuro para mejorar la ciudad.</p>
+        <p class="publicado-en">Publicado en <em>Andalucía Información / Viva El Puerto</em></p>
+        <a class="btn-leer" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/cuando-puerto-une-puerto-cambia/202605081122023255985.html" target="_blank" rel="noopener">Leer artículo original <span class="flecha" aria-hidden="true">&rarr;</span></a>
+      </article>
+</main>
+
+<footer id="contacto">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="index.html" class="brand"><img src="img/logo-faldon.png" alt="100x100 Unidos Portuenses"></a>
+      <p style="opacity:0.75; max-width:32ch; margin-top:12px;">El futuro que nos merecemos.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/100x100_unidos_portuenses/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.facebook.com/people/100x100-Unidos-Portuenses/61581433422215/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.5c0-.9.3-1.5 1.6-1.5h1.5V4.3C16.3 4.2 15.3 4 14.2 4c-2.4 0-4 1.5-4 4.2v2.3H7.7v3h2.5V21h3.3z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@100x100unidosportuenses" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3h2.4c.2 1.8 1.4 3.3 3.1 3.7v2.6c-1.2 0-2.3-.4-3.1-1v6.1c0 3-2.4 5.4-5.4 5.4S6 17.4 6 14.4c0-2.8 2.1-5.1 4.8-5.4v2.7c-1.2.3-2 1.4-2 2.7 0 1.5 1.3 2.8 2.8 2.8s2.9-1.3 2.9-2.8V3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="foot-nav">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="index.html#proyecto">El proyecto</a></li>
+        <li><a href="#">Ideario</a></li>
+        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="tribunas.html">Tribunas</a></li>
+        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="index.html#unete">Participa</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="foot-contact">
+      <h4>Contacto</h4>
+      <div class="email-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 7 9-7"/></svg>
+        <a href="mailto:participa@100x100unidosportuenses.com">participa@<wbr>100x100unidosportuenses.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 100x100 Unidos Portuenses · Elecciones Municipales 2027</span>
+    <span><a href="aviso-legal.html">Aviso legal</a></span>
+  </div>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle'), navLinks = document.querySelector('nav.links');
+  if (navToggle) {
+    navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ navLinks.classList.remove('open'); }); });
+  }
+</script>
+</body>
+</html>
