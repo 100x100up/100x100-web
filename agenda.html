@@ -267,7 +267,7 @@
     <nav class="links">
       <a href="index.html#proyecto">El proyecto</a>
       <a href="ideario.html">Ideario</a>
-      <a href="index.html#noticias">Noticias</a>
+      <a href="noticias.html">Noticias</a>
       <a href="tribunas.html">Tribunas</a>
       <a href="#">Agenda</a>
       <a href="index.html#unete">Participa</a>
@@ -296,8 +296,8 @@
 
            1) FECHAS (atributos de la etiqueta <article>, justo debajo):
               data-fecha = primer día del rango.        Formato AAAA-MM-DD   (CAMBIAR)
-              data-fin   = último día y hora de cierre.  Formato AAAA-MM-DDTHH:MM (CAMBIAR)
-              La ficha pasa sola a "Eventos realizados" cuando se cumple data-fin.
+              data-fin   = último día del rango (la hora da igual).  Formato AAAA-MM-DD (CAMBIAR)
+              La ficha pasa sola a "Eventos realizados" a las 8:00 del día siguiente a ese último día.
               No borres data-fijo: indica que el texto de fecha de abajo se escribe a mano.
               Para un acto de un solo día con hora (p. ej. 17:00) usa mejor la ficha
               normal del Pleno: quita "evento--rango" y "data-fijo", pon
@@ -507,8 +507,8 @@
       <h4>Navegación</h4>
       <ul>
         <li><a href="index.html#proyecto">El proyecto</a></li>
-        <li><a href="#">Ideario</a></li>
-        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="ideario.html">Ideario</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
         <li><a href="tribunas.html">Tribunas</a></li>
         <li><a href="agenda.html">Agenda</a></li>
         <li><a href="index.html#unete">Participa</a></li>
@@ -537,7 +537,6 @@
   }
 
   (function () {
-    var DURACION = 3 * 60 * 60 * 1000;
     var listaProx = document.getElementById('listaProximos');
     var listaPas = document.getElementById('listaPasados');
     var sinProx = document.getElementById('sinProximos');
@@ -552,7 +551,8 @@
       if (isNaN(d)) return;
       c._t = d.getTime();
       var fin = new Date(c.getAttribute('data-fin') || '');
-      c._fin = isNaN(fin) ? c._t + DURACION : fin.getTime();
+      var base = isNaN(fin) ? d : fin;
+      c._fin = new Date(base.getFullYear(), base.getMonth(), base.getDate() + 1, 8, 0).getTime(); /* a las 8:00 del día siguiente pasa a Eventos realizados */
       if (c.hasAttribute('data-fijo')) return;
       var mes = d.toLocaleDateString('es-ES', { month: 'long' });
       var corto = d.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '');

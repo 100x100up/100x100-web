@@ -178,9 +178,6 @@
   .act-text { font-size: 0.92rem; opacity: 0.8; margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .act-link { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.92rem; font-weight: 600; color: var(--orange-dark); text-decoration: none; }
   .act-link:hover, .act-link:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
-  .act-more { max-width: 1120px; margin: 36px auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; font-size: 0.95rem; font-weight: 600; }
-  .act-more a { color: var(--orange-dark); text-decoration: none; }
-  .act-more a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   .join { background: var(--paper-alt); color: var(--ink); }
   .join .section-head h2 { color: var(--ink); }
@@ -242,8 +239,8 @@
     <a href="#" class="brand"><img class="logo-color" src="img/logo-cabecera.png" alt="100x100 Unidos Portuenses"><img class="logo-blanco" src="img/logo-faldon.png" alt="" aria-hidden="true"></a>
     <nav class="links">
       <a href="#proyecto">El proyecto</a>
-      <a href="#ideario">Ideario</a>
-      <a href="#noticias">Noticias</a>
+      <a href="ideario.html">Ideario</a>
+      <a href="noticias.html">Noticias</a>
       <a href="tribunas.html">Tribunas</a>
       <a href="agenda.html">Agenda</a>
       <a href="#unete">Participa</a>
@@ -362,7 +359,7 @@
         <div class="act-meta"><span class="act-tag">Tribuna · Javier Ramírez</span><time class="act-fechatxt" datetime="2026-11-06">6 nov 2026</time></div>
         <h3 class="act-title">Decidir escuchando</h3>
         <p class="act-text">Reflexión sobre la importancia de la participación ciudadana real en la gestión municipal y la escucha activa a pie de calle.</p>
-        <a class="act-link" href="https://www.andaluciainformacion.es/blog/tribuna-puerto/decidir-escuchando/202611061104533528514.html" target="_blank" rel="noopener">Leer tribuna &rarr;</a>
+        <a class="act-link" href="tribunas.html">Tribunas &rarr;</a>
       </div>
     </article>
 
@@ -375,11 +372,6 @@
         <a class="act-link" href="agenda.html">Ver agenda &rarr;</a>
       </div>
     </article>
-  </div>
-  <div class="act-more">
-    <a href="noticias.html">Más noticias &rarr;</a>
-    <a href="tribunas.html">Más tribunas &rarr;</a>
-    <a href="agenda.html">Agenda completa &rarr;</a>
   </div>
 </section>
 
@@ -425,8 +417,8 @@
       <h4>Navegación</h4>
       <ul>
         <li><a href="#proyecto">El proyecto</a></li>
-        <li><a href="#ideario">Ideario</a></li>
-        <li><a href="#noticias">Noticias</a></li>
+        <li><a href="ideario.html">Ideario</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
         <li><a href="tribunas.html">Tribunas</a></li>
         <li><a href="agenda.html">Agenda</a></li>
         <li><a href="#unete">Participa</a></li>
@@ -474,7 +466,6 @@
     var ABR = { enero: 'ene', febrero: 'feb', marzo: 'mar', abril: 'abr', mayo: 'may', junio: 'jun', julio: 'jul', agosto: 'ago', septiembre: 'sep', octubre: 'oct', noviembre: 'nov', diciembre: 'dic' };
     var ABR_LISTA = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
     var MESES = Object.keys(ABR);
-    var DURACION = 3 * 60 * 60 * 1000;
     function pedir(url) {
       return fetch(url, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(url); return r.text(); })
         .then(function (t) { return new DOMParser().parseFromString(t, 'text/html'); });
@@ -518,9 +509,6 @@
       var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = corta(iso);
       poner(card, '.act-title', txt(mejor, '.titular-tribuna'));
       poner(card, '.act-text', txt(mejor, '.resumen-tribuna'));
-      var enlace = mejor.querySelector('.btn-leer'), a = card.querySelector('.act-link');
-      if (enlace) { a.setAttribute('href', enlace.getAttribute('href')); a.setAttribute('target', '_blank'); }
-      else { a.setAttribute('href', 'tribunas.html'); a.removeAttribute('target'); }
       var av = card.querySelector('.act-avatar'), src = mejor.querySelector('.avatar-autor img'), ini = '';
       mejor.querySelector('.avatar-autor').childNodes.forEach(function (n) { if (n.nodeType === 3) ini += n.textContent; });
       while (av.firstChild) av.removeChild(av.firstChild);
@@ -537,7 +525,8 @@
       doc.querySelectorAll('.evento').forEach(function (e) {
         var raw = e.getAttribute('data-fecha') || '', conHora = raw.indexOf('T') > -1;
         var d = new Date(conHora ? raw : raw + 'T00:00'); if (isNaN(d)) return;
-        var fin = new Date(e.getAttribute('data-fin') || ''), finMs = isNaN(fin) ? d.getTime() + DURACION : fin.getTime();
+        var fin = new Date(e.getAttribute('data-fin') || ''), base = isNaN(fin) ? d : fin;
+        var finMs = new Date(base.getFullYear(), base.getMonth(), base.getDate() + 1, 8, 0).getTime(); /* 8:00 del día siguiente al último día */
         if (finMs >= ahora) proximos.push({ e: e, d: d, conHora: conHora, fijo: e.hasAttribute('data-fijo') });
       });
       proximos.sort(function (a, b) { return a.d - b.d; });
