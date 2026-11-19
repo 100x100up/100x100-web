@@ -233,15 +233,18 @@
   .agenda-nota a { color: var(--orange-dark); font-weight: 600; overflow-wrap: anywhere; }
 
   .agenda-pasados { display: grid; gap: 16px; grid-template-columns: 1fr; }
-  @media (min-width: 680px) { .agenda-pasados { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; } } /* todas las tarjetas de eventos realizados miden lo mismo */
-  @media (min-width: 1000px) { .agenda-pasados { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 780px) { .agenda-pasados { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; } } /* todas las tarjetas de eventos realizados miden lo mismo */
+  @media (min-width: 1100px) { .agenda-pasados { grid-template-columns: repeat(3, 1fr); } }
   .agenda-pasados .evento { grid-template-columns: 56px 1fr; gap: 14px; padding: 16px; align-content: start; }
   .agenda-pasados .ev-badge { height: 58px; background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
   .agenda-pasados .ev-dia { font-size: 1.45rem; }
   .agenda-pasados .ev-mes { margin-top: 4px; font-size: 0.66rem; }
   .agenda-pasados .ev-top { margin-bottom: 6px; }
   .agenda-pasados .ev-titulo { font-size: 1.08rem; }
-  .agenda-pasados .ev-cuando { font-size: 0.95rem; margin-bottom: 6px; }
+  .agenda-pasados .ev-cuando { font-size: 0.85rem; margin-bottom: 6px; } /* un poco menor para que la hora quepa en la misma línea que la fecha */
+  @media (min-width: 1100px) and (max-width: 1179px) { .agenda-pasados .ev-cuando { font-size: 0.82rem; } }
+  @media (max-width: 560px) { .agenda-pasados .ev-cuando { font-size: 0.8rem; } }
+  @media (max-width: 380px) { .agenda-pasados .ev-cuando { font-size: 0.76rem; } }
   .agenda-pasados .ev-cuando { display: flex; flex-wrap: wrap; gap: 0 10px; }
   .agenda-pasados .ev-sep { display: none; }
   .agenda-pasados .ev-hora { color: var(--orange-dark); font-weight: 700; }
