@@ -201,8 +201,9 @@
   .ev-dia { font-family: 'Fraunces', Georgia, serif; font-weight: 900; font-size: 2.1rem; }
   .ev-mes { margin-top: 6px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; }
   .ev-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 8px; }
-  .ev-tag { display: inline-block; padding: 3px 12px; border: 1.5px solid var(--navy); border-radius: 999px; color: var(--navy); font-size: 0.78rem; font-weight: 600; }
-  .ev-tag--pleno { background: var(--navy); color: var(--on-navy); }
+  /* Etiqueta del tipo de acto: azul para todos (Pleno, Gala, etc.); solo la "Visita de barrio" va en blanco con contorno */
+  .ev-tag { display: inline-block; padding: 3px 12px; border: 1.5px solid var(--navy); border-radius: 999px; background: var(--navy); color: var(--on-navy); font-size: 0.78rem; font-weight: 600; }
+  .ev-tag--visita { background: #fff; color: var(--navy); }
   .ev-aviso { display: none; font-size: 0.78rem; font-weight: 600; color: var(--orange); }
   .evento.es-proximo .ev-aviso { display: inline-block; }
   .ev-titulo { font-size: 1.3rem; font-weight: 600; line-height: 1.25; margin: 0 0 4px; }
@@ -291,35 +292,34 @@
       </div>
       <div class="agenda-proximos" id="listaProximos">
       <!-- ==========================================================================
-           PLANTILLA · VISITA DE BARRIO CON RANGO DE FECHAS
+           PLANTILLA · VISITA DE BARRIO CON TEXTO DE FECHA A MANO
            Para reutilizar esta ficha cambia SOLO lo marcado con "CAMBIAR":
 
            1) FECHAS (atributos de la etiqueta <article>, justo debajo):
-              data-fecha = primer día del rango.        Formato AAAA-MM-DD   (CAMBIAR)
+              data-fecha = primer día (o único día).     Formato AAAA-MM-DD   (CAMBIAR)
               data-fin   = último día del rango (la hora da igual).  Formato AAAA-MM-DD (CAMBIAR)
               La ficha pasa sola a "Eventos realizados" a las 8:00 del día siguiente a ese último día.
               No borres data-fijo: indica que el texto de fecha de abajo se escribe a mano.
-              Para un acto de un solo día con hora (p. ej. 17:00) usa mejor la ficha
-              normal del Pleno: quita "evento--rango" y "data-fijo", pon
-              data-fecha="2026-11-19T17:00" y se rellenan solos día, mes y hora.
-           2) RECUADRO DE LA IZQUIERDA: texto del mes (NOV, DIC, ENE...).            (CAMBIAR)
+              Para un acto con hora exacta (p. ej. 17:00) usa mejor la ficha normal del Pleno:
+              quita "data-fijo", pon data-fecha="2026-11-19T17:00" y se rellenan solos día, mes y hora.
+           2) RECUADRO DE LA IZQUIERDA: número del día (19) y mes en minúscula (nov, dic...). (CAMBIAR)
            3) ZONA: el título "Zona de El Puerto de Santa María".                    (CAMBIAR)
-           4) TEXTO DE FECHA: "16-23 de noviembre" y la franja "tarde".               (CAMBIAR)
+           4) TEXTO DE FECHA: "19 de noviembre" y la franja "tarde".                  (CAMBIAR)
            5) ENLACE AL MAPA: ahora solo hay la leyenda "Ver ubicación en el mapa"
               sin enlace. Para activarlo, borra el <span class="ev-lugar-txt"> y
               quita los signos de comentario del bloque <a ...> que hay debajo,
               sustituyendo PEGAR-AQUI-EL-ENLACE por la URL de Google Maps.        (CAMBIAR)
            ========================================================================== -->
-      <article class="evento evento--rango es-proximo" data-fecha="2026-11-16" data-fin="2026-11-23T23:59" data-fijo>
-        <!-- Mes que se ve en el recuadro de la izquierda -->
-        <div class="ev-badge" aria-hidden="true"><span class="ev-dia">NOV</span></div>
+      <article class="evento es-proximo" data-fecha="2026-11-19" data-fin="2026-11-19" data-fijo>
+        <!-- Día y mes que se ven en el recuadro de la izquierda -->
+        <div class="ev-badge" aria-hidden="true"><span class="ev-dia">19</span><span class="ev-mes">nov</span></div>
         <div class="ev-body">
-          <!-- Etiqueta del tipo de acto (Visita de barrio, Reunión abierta, Mesa informativa...) -->
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <!-- Etiqueta del tipo de acto. "Visita de barrio" sale en blanco con contorno; cualquier otro tipo (Pleno Municipal, Gala, Reunión abierta...) sale en azul. Es automático por el texto. -->
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <!-- Zona o barrio -->
           <h3 class="ev-titulo">Zona de El Puerto de Santa María</h3>
           <!-- Fechas: texto a mano (ev-fechatxt) y franja horaria en naranja (ev-hora). -->
-          <p class="ev-cuando"><span class="ev-fechatxt">16-23 de noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">tarde</span></p>
+          <p class="ev-cuando"><span class="ev-fechatxt">19 de noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">tarde</span></p>
           <!-- Ubicación: de momento solo la leyenda, sin enlace -->
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="ev-lugar-txt">Ver ubicación en el mapa</span>
             <!-- VERSIÓN CON ENLACE (descomentar cuando haya enlace y borrar el <span> de arriba):
@@ -328,6 +328,15 @@
           </p>
           <!-- Descripción breve -->
           <p class="ev-desc">Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.</p>
+        </div>
+      </article>
+            <article class="evento" data-fecha="2026-11-20" data-fijo>
+        <div class="ev-badge" aria-hidden="true"><span class="ev-dia">20</span><span class="ev-mes">nov</span></div>
+        <div class="ev-body">
+          <div class="ev-top"><span class="ev-tag">Reunión</span><span class="ev-aviso">Próximo acto</span></div>
+          <h3 class="ev-titulo">Colectivo</h3>
+          <p class="ev-cuando"><span class="ev-fechatxt">Viernes 20 de noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">tarde</span></p>
+          <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20El%20Puerto%20de%20Santa%20Mar%C3%ADa" target="_blank" rel="noopener" aria-label="Salón de Plenos del Ayuntamiento, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
         </div>
       </article>
 <article class="evento" data-fecha="2026-12-04T09:00">
@@ -367,7 +376,7 @@
       <article class="evento" data-fecha="2026-11-12T17:00">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">12</span><span class="ev-mes">nov</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">Barriada de Los Frailes</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Jueves 12 de noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">17:00 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Barriada%20Los%20Frailes%2C%20El%20Puerto%20de%20Santa%20Mar%C3%ADa" target="_blank" rel="noopener" aria-label="Ubicación, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -388,7 +397,7 @@
       <article class="evento" data-fecha="2026-11-05T17:00">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">5</span><span class="ev-mes">nov</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">Barrio Alto</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Jueves 5 de noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">17:00 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Ermita%20de%20Santa%20Clara%2C%20El%20Puerto%20de%20Santa%20Mar%C3%ADa" target="_blank" rel="noopener" aria-label="Ermita de Santa Clara, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -398,7 +407,7 @@
       <article class="evento" data-fecha="2026-10-27T17:30">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">27</span><span class="ev-mes">oct</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">Los Almendros II</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Martes 27 de octubre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">17:30 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://maps.app.goo.gl/5k8xbVJBbokP7KFv9" target="_blank" rel="noopener" aria-label="Calle Avellana, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -407,7 +416,7 @@
       <article class="evento" data-fecha="2026-10-21T18:30">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">21</span><span class="ev-mes">oct</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">Los Romanos</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Miércoles 21 de octubre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">18:30 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Calle%20Buenos%20Aires%2012%2C%20El%20Puerto%20de%20Santa%20Mar%C3%ADa" target="_blank" rel="noopener" aria-label="Calle Buenos Aires, 12, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -417,7 +426,7 @@
       <article class="evento" data-fecha="2026-10-15T17:30">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">15</span><span class="ev-mes">oct</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">Barriada de Las Bodegas</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Jueves 15 de octubre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">17:30 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Vino%20Oloroso%2C%20El%20Puerto%20de%20Santa%20Mar%C3%ADa" target="_blank" rel="noopener" aria-label="Vino Oloroso, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -426,7 +435,7 @@
       <article class="evento" data-fecha="2026-10-06T18:30">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">6</span><span class="ev-mes">oct</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">El Juncal</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Martes 6 de octubre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">18:30 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://maps.app.goo.gl/nn1oyyNN1mKCHjWD9" target="_blank" rel="noopener" aria-label="Avenida de la Música, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -445,7 +454,7 @@
       <article class="evento" data-fecha="2026-09-30T19:00">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">30</span><span class="ev-mes">sep</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">La Gobernaora</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Miércoles 30 de septiembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">19:00 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://maps.app.goo.gl/PfH9Bf1HxByVUZ5z5" target="_blank" rel="noopener" aria-label="Plaza Paco Teja, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -455,7 +464,7 @@
       <article class="evento" data-fecha="2026-09-22T19:00">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">22</span><span class="ev-mes">sep</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">El Tomillar – Vallealto</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Martes 22 de septiembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">19:00 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Parque%20infantil%20Vallealto%2C%20El%20Puerto%20de%20Santa%20Mar%C3%ADa" target="_blank" rel="noopener" aria-label="Parque infantil de Vallealto, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -465,7 +474,7 @@
       <article class="evento" data-fecha="2026-09-15T19:00">
         <div class="ev-badge" aria-hidden="true"><span class="ev-dia">15</span><span class="ev-mes">sep</span></div>
         <div class="ev-body">
-          <div class="ev-top"><span class="ev-tag">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
+          <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próximo acto</span></div>
           <h3 class="ev-titulo">Barriada de El Tejar</h3>
           <p class="ev-cuando"><span class="ev-fechatxt">Martes 15 de septiembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">19:00 h</span></p>
           <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><a href="https://maps.app.goo.gl/s6dEaWgePL2e65qL9" target="_blank" rel="noopener" aria-label="Plaza Pepe Jerez, ver en Google Maps (se abre en una pestaña nueva)">Ver ubicación en el mapa</a></p>
@@ -545,6 +554,8 @@
     var cards = Array.prototype.slice.call(document.querySelectorAll('.evento'));
     function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
     cards.forEach(function (c) {
+      var tg = c.querySelector('.ev-tag');
+      if (tg) tg.classList.toggle('ev-tag--visita', /^visita de barrio$/i.test(tg.textContent.trim())); /* visita = blanca; cualquier otro tipo = azul */
       var raw = c.getAttribute('data-fecha') || '';
       var conHora = raw.indexOf('T') > -1;
       var d = new Date(conHora ? raw : raw + 'T00:00');

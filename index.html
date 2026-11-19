@@ -346,7 +346,7 @@
     <article class="act-card" id="actNoticia">
       <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-11-100x100-unidos-portuenses-vota-en-contra-mesa-vivienda.jpg" alt="Javier Botella observando la fachada deteriorada de una vivienda" loading="lazy"></div>
       <div class="act-body">
-        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-11">11 nov 2026</time></div>
+        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-11">11 de noviembre de 2026</time></div>
         <h3 class="act-title">Beardo vota en contra de crear una Mesa de trabajo por la Vivienda</h3>
         <p class="act-text">El Gobierno municipal tumba también la propuesta de crear una Mesa del Centro Histórico, rechazando dos iniciativas de 100x100 Unidos Portuenses para fomentar la participación ciudadana.</p>
         <a class="act-link" href="noticias.html#2026-11-11-mesa-vivienda">Leer noticia &rarr;</a>
@@ -356,7 +356,7 @@
     <article class="act-card" id="actTribuna">
       <div class="act-media act-media--tribuna"><div class="act-avatar" aria-hidden="true"><img src="img/tribunas/javier-ramirez.jpg" alt="" loading="lazy" onerror="this.remove()">JR</div></div>
       <div class="act-body">
-        <div class="act-meta"><span class="act-tag">Tribuna · Javier Ramírez</span><time class="act-fechatxt" datetime="2026-11-06">6 nov 2026</time></div>
+        <div class="act-meta"><span class="act-tag">Tribuna · Javier Ramírez</span><time class="act-fechatxt" datetime="2026-11-06">06 Nov 2026</time></div>
         <h3 class="act-title">Decidir escuchando</h3>
         <p class="act-text">Reflexión sobre la importancia de la participación ciudadana real en la gestión municipal y la escucha activa a pie de calle.</p>
         <a class="act-link" href="tribunas.html">Tribunas &rarr;</a>
@@ -364,9 +364,9 @@
     </article>
 
     <article class="act-card" id="actAgenda">
-      <div class="act-media act-media--agenda"><span class="act-fecha-grande">NOV</span><span class="act-fecha-peq">16-23</span></div>
+      <div class="act-media act-media--agenda"><span class="act-fecha-grande">19</span><span class="act-fecha-peq">nov</span></div>
       <div class="act-body">
-        <div class="act-meta"><span class="act-tag">Agenda</span><span class="act-fechatxt">16-23 nov · tarde</span></div>
+        <div class="act-meta"><span class="act-tag">Agenda</span><span class="act-fechatxt">19 de noviembre | tarde</span></div>
         <h3 class="act-title">Visita de barrio: Zona de El Puerto de Santa María</h3>
         <p class="act-text">Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.</p>
         <a class="act-link" href="agenda.html">Ver agenda &rarr;</a>
@@ -463,17 +463,13 @@
      Actualidad con la última noticia, la última tribuna y el próximo acto. Si no puede leerlas (sin servidor o sin
      conexión) se quedan las tarjetas que ya hay escritas en el HTML. */
   (function () {
-    var ABR = { enero: 'ene', febrero: 'feb', marzo: 'mar', abril: 'abr', mayo: 'may', junio: 'jun', julio: 'jul', agosto: 'ago', septiembre: 'sep', octubre: 'oct', noviembre: 'nov', diciembre: 'dic' };
-    var ABR_LISTA = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-    var MESES = Object.keys(ABR);
+    var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     function pedir(url) {
       return fetch(url, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(url); return r.text(); })
         .then(function (t) { return new DOMParser().parseFromString(t, 'text/html'); });
     }
     function txt(el, sel) { var e = el.querySelector(sel); return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; }
     function poner(card, sel, valor) { var e = card.querySelector(sel); if (e) e.textContent = valor; }
-    function abreviar(texto) { return texto.replace(/ de (enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\b/gi, function (m, mes) { return ' ' + ABR[mes.toLowerCase()]; }); }
-    function corta(iso) { var p = iso.split('-'); return parseInt(p[2], 10) + ' ' + ABR_LISTA[parseInt(p[1], 10) - 1] + ' ' + p[0]; }
 
     /* ---- última noticia ---- */
     pedir('noticias.html').then(function (doc) {
@@ -489,7 +485,7 @@
       var card = document.getElementById('actNoticia');
       var img = mejor.querySelector('img'), foto = card.querySelector('.act-foto');
       if (img && foto) { foto.setAttribute('src', img.getAttribute('src')); foto.setAttribute('alt', img.getAttribute('alt') || ''); }
-      var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = corta(iso);
+      var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = txt(mejor, '.date');
       poner(card, '.act-title', txt(mejor, 'h3'));
       var p = mejor.querySelector('p'); if (p) poner(card, '.act-text', p.textContent.replace(/\s+/g, ' ').trim());
       if (mejor.id) card.querySelector('.act-link').setAttribute('href', 'noticias.html#' + mejor.id);
@@ -506,7 +502,7 @@
       if (!mejor) return;
       var card = document.getElementById('actTribuna');
       poner(card, '.act-tag', 'Tribuna · ' + txt(mejor, '.nombre-autor'));
-      var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = corta(iso);
+      var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = txt(mejor, '.fecha-flotante');
       poner(card, '.act-title', txt(mejor, '.titular-tribuna'));
       poner(card, '.act-text', txt(mejor, '.resumen-tribuna'));
       var av = card.querySelector('.act-avatar'), src = mejor.querySelector('.avatar-autor img'), ini = '';
@@ -542,14 +538,16 @@
       var x = proximos[0], e = x.e, tipo = txt(e, '.ev-tag'), titulo = txt(e, '.ev-titulo');
       var grande, peq, cuando;
       if (x.fijo) {
+        var fechaTxt = txt(e, '.ev-fechatxt'), horaTxt = txt(e, '.ev-hora');
         grande = txt(e, '.ev-dia');
-        var rango = txt(e, '.ev-fechatxt');
-        peq = rango.split(' de ')[0];
-        cuando = abreviar(rango) + (txt(e, '.ev-hora') ? ' · ' + txt(e, '.ev-hora') : '');
+        peq = txt(e, '.ev-mes') || fechaTxt.split(' de ')[0];
+        cuando = fechaTxt + (horaTxt ? ' | ' + horaTxt : '');
       } else {
+        var dia = x.d.toLocaleDateString('es-ES', { weekday: 'long' });
         grande = String(x.d.getDate());
-        peq = ABR_LISTA[x.d.getMonth()];
-        cuando = x.d.getDate() + ' ' + ABR_LISTA[x.d.getMonth()] + (x.conHora ? ' · ' + x.d.getHours() + ':' + ('0' + x.d.getMinutes()).slice(-2) + ' h' : '');
+        peq = x.d.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '');
+        cuando = dia.charAt(0).toUpperCase() + dia.slice(1) + ' ' + x.d.getDate() + ' de ' + x.d.toLocaleDateString('es-ES', { month: 'long' }) +
+          (x.conHora ? ' | ' + x.d.getHours() + ':' + ('0' + x.d.getMinutes()).slice(-2) + ' h' : '');
       }
       media.querySelector('.act-fecha-grande').textContent = grande;
       media.querySelector('.act-fecha-peq').textContent = peq;
