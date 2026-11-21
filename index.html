@@ -147,7 +147,8 @@
 
   .values-alt { background: var(--paper-alt); }
   .values-alt .section-head { max-width: 1120px; margin: 0 auto 44px; }
-  #noticias .section-head { max-width: 1120px; margin: 0 auto 44px; }
+  #noticias .section-head, #trabajo .section-head { max-width: 1120px; margin: 0 auto 44px; }
+  #trabajo { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .values-list { max-width: 1120px; margin: 0 auto; display: grid; gap: 0; }
   @media (min-width: 780px) { .values-list { grid-template-columns: repeat(3, 1fr); } }
   .value-item { padding: 28px 0; border-top: 1px solid var(--line); }
@@ -155,7 +156,7 @@
   .value-item h3 { font-style: italic; font-weight: 500; font-size: 1.3rem; margin: 0 0 10px; }
   .value-item p { margin: 0; opacity: 0.85; font-size: 0.98rem; }
 
-  /* Actualidad: última noticia, última tribuna y próximo acto de la agenda.
+  /* Actualidad: tres últimas noticias; y debajo la última tribuna, la próxima visita de barrio y el resumen de propuestas.
      El contenido se actualiza solo (script "Actualidad automática" al final); el HTML de las tarjetas es el respaldo. */
   .act-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 28px; }
   @media (min-width: 780px) { .act-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -168,11 +169,26 @@
   .act-avatar { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; border-radius: 50%; overflow: hidden; background: var(--orange); color: #fff; font-weight: 700; font-size: 1.7rem; }
   .act-avatar img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .act-media--agenda { background: var(--orange); color: #fff; }
+  .act-media--stats { background: var(--paper-alt); }
+  .act-media--stats .act-fecha-grande { color: var(--orange); font-size: clamp(2.8rem, 5.5vw, 3.6rem); }
+  .act-media--stats .act-fecha-peq { margin-top: 4px; font-size: 0.82rem; letter-spacing: 0.04em; }
+  .act-bar { display: flex; width: min(220px, 70%); height: 10px; margin-top: 18px; border-radius: 999px; overflow: hidden; background: #fff; }
+  .act-bar span { display: block; min-width: 0; }
+  .act-bar span:nth-child(1) { background: var(--orange); }
+  .act-bar span:nth-child(2) { background: var(--ink); }
+  .act-bar span:nth-child(3) { background: #d8ccb8; }
+  .act-stats { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 8px; font-size: 0.92rem; }
+  .act-stats li { display: flex; align-items: baseline; gap: 8px; }
+  .act-stats strong { font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; font-weight: 600; min-width: 1.4em; }
+  .act-punto { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; align-self: center; }
+  .act-punto--ok { background: var(--orange); }
+  .act-punto--no { background: var(--ink); }
+  .act-punto--sv { background: #d8ccb8; }
   .act-fecha-grande { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(2.4rem, 5vw, 3.2rem); line-height: 1; }
   .act-fecha-peq { margin-top: 8px; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
   .act-body { display: flex; flex-direction: column; flex: 1; padding: 20px 22px 18px; }
   .act-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; font-size: 0.82rem; }
-  .act-tag { font-weight: 600; color: var(--orange-dark); }
+  .act-tag { font-weight: 600; color: var(--orange-dark); white-space: nowrap; }
   .act-fechatxt { opacity: 0.65; text-align: right; }
   .act-title { font-size: 1.15rem; font-weight: 600; line-height: 1.3; margin: 0 0 10px; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
   .act-text { font-size: 0.92rem; opacity: 0.8; margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -243,7 +259,7 @@
       <a href="noticias.html">Noticias</a>
       <a href="tribunas.html">Tribunas</a>
       <a href="propuestas.html">Propuestas</a>
-      <a href="agenda.html">Agenda</a>
+      <a href="barrios.html">Barrios</a>
       <a href="#unete">Participa</a>
       <a href="#contacto">Contacto</a>
     </nav>
@@ -337,14 +353,23 @@
 <section id="noticias">
   <div class="section-head">
     <p class="kicker">Actualidad</p>
-    <h2>Lo último de nuestro trabajo</h2>
+    <h2>Noticias</h2>
   </div>
-  <!-- ACTUALIDAD AUTOMÁTICA: estas tres tarjetas se actualizan solas al cargar la página (script del final) con
-       la última noticia de noticias.html, la última tribuna de tribunas.html y el próximo acto de agenda.html.
-       Lo que hay aquí es el respaldo que se ve si el script no puede leer esas páginas (por ejemplo, al abrir el
-       archivo suelto desde el ordenador, sin servidor). -->
+  <!-- NOTICIAS AUTOMÁTICAS: estas tres tarjetas se actualizan solas al cargar la página (script del final) con las
+       tres noticias más recientes de noticias.html. Cada una lleva a la página de noticias con esa noticia desplegada.
+       Lo que hay aquí es el respaldo que se ve si el script no puede leer esa página (por ejemplo, al abrir el archivo
+       suelto desde el ordenador, sin servidor). -->
   <div class="act-grid">
-    <article class="act-card" id="actNoticia">
+    <article class="act-card" id="actNoticia1">
+      <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-19-100x100-unidos-portuenses-pide-explicaciones-beardo-citacion-judicial.jpg" alt="Javier Botella en declaraciones sobre la citación judicial a Germán Beardo" loading="lazy"></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-19">19 de noviembre de 2026</time></div>
+        <h3 class="act-title">100x100 Unidos Portuenses pide explicaciones a Beardo tras su citación judicial</h3>
+        <p class="act-text">La formación municipalista considera que, sin cuestionar la presunción de inocencia del alcalde, &#8220;se trata de un asunto de relevancia política que merece explicaciones ante la ciudadanía&#8221;.</p>
+        <a class="act-link" href="noticias.html#2026-11-19-explicaciones-beardo-citacion-judicial">Leer noticia &rarr;</a>
+      </div>
+    </article>
+    <article class="act-card" id="actNoticia2">
       <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-11-100x100-unidos-portuenses-vota-en-contra-mesa-vivienda.jpg" alt="Javier Botella observando la fachada deteriorada de una vivienda" loading="lazy"></div>
       <div class="act-body">
         <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-11">11 de noviembre de 2026</time></div>
@@ -353,7 +378,26 @@
         <a class="act-link" href="noticias.html#2026-11-11-mesa-vivienda">Leer noticia &rarr;</a>
       </div>
     </article>
+    <article class="act-card" id="actNoticia3">
+      <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-04-100x100-unidos-portuenses-propone-ampliar-salas.jpg" alt="Representante de 100x100 Unidos Portuenses frente a un centro cívico de El Puerto de Santa María" loading="lazy"></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-04">4 de noviembre de 2026</time></div>
+        <h3 class="act-title">100x100 Unidos Portuenses propone ampliar las salas de estudio y crear nuevos espacios de trabajo colaborativo en El Puerto</h3>
+        <p class="act-text">Francisco Belaustegui: &#8220;No basta con mantener las salas que tenemos; hay que planificar su ampliación y adaptarlas a las necesidades reales de los estudiantes&#8221;.</p>
+        <a class="act-link" href="noticias.html#2026-11-04-salas-de-estudio">Leer noticia &rarr;</a>
+      </div>
+    </article>
+  </div>
+</section>
 
+<section id="trabajo">
+  <div class="section-head">
+    <p class="kicker">Nuestro trabajo</p>
+    <h2>Tribuna, visitas y propuestas</h2>
+  </div>
+  <!-- TRIBUNA, VISITA Y PROPUESTAS AUTOMÁTICAS: se actualizan solas con la última tribuna de tribunas.html, la próxima
+       visita de barrios.html (o la visita estándar si no hay ninguna) y el resumen de votaciones de propuestas.html. -->
+  <div class="act-grid">
     <article class="act-card" id="actTribuna">
       <div class="act-media act-media--tribuna"><div class="act-avatar" aria-hidden="true"><img src="img/tribunas/javier-ramirez.jpg" alt="" loading="lazy" onerror="this.remove()">JR</div></div>
       <div class="act-body">
@@ -364,13 +408,29 @@
       </div>
     </article>
 
-    <article class="act-card" id="actAgenda">
+    <article class="act-card" id="actVisita">
       <div class="act-media act-media--agenda"><span class="act-fecha-grande">19</span><span class="act-fecha-peq">nov</span></div>
       <div class="act-body">
-        <div class="act-meta"><span class="act-tag">Agenda</span><span class="act-fechatxt">19 de noviembre | tarde</span></div>
-        <h3 class="act-title">Visita de barrio: Zona de El Puerto de Santa María</h3>
+        <div class="act-meta"><span class="act-tag">Visita de barrio</span><span class="act-fechatxt">19 de noviembre | 17:00 h</span></div>
+        <h3 class="act-title">Barriada del Pilar </h3>
         <p class="act-text">Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.</p>
-        <a class="act-link" href="agenda.html">Ver agenda &rarr;</a>
+        <a class="act-link" href="barrios.html">Barrios &rarr;</a>
+      </div>
+    </article>
+
+    <article class="act-card" id="actPropuestas">
+      <div class="act-media act-media--stats"><span class="act-fecha-grande" data-p="total">18</span><span class="act-fecha-peq">propuestas al Pleno</span>
+        <div class="act-bar" aria-hidden="true"><span data-p="barra-aprobada" style="flex: 12"></span><span data-p="barra-rechazada" style="flex: 2"></span><span data-p="barra-sinvotacion" style="flex: 4"></span></div>
+      </div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Propuestas</span><span class="act-fechatxt">2026</span></div>
+        <h3 class="act-title">Lo que hemos llevado al Pleno</h3>
+        <ul class="act-stats">
+          <li><span class="act-punto act-punto--ok" aria-hidden="true"></span><strong data-p="aprobada">12</strong> aprobadas</li>
+          <li><span class="act-punto act-punto--no" aria-hidden="true"></span><strong data-p="rechazada">2</strong> rechazadas</li>
+          <li><span class="act-punto act-punto--sv" aria-hidden="true"></span><strong data-p="sinvotacion">4</strong> preguntas y ruegos sin votación</li>
+        </ul>
+        <a class="act-link" href="propuestas.html">Propuestas &rarr;</a>
       </div>
     </article>
   </div>
@@ -422,7 +482,7 @@
         <li><a href="noticias.html">Noticias</a></li>
         <li><a href="tribunas.html">Tribunas</a></li>
         <li><a href="propuestas.html">Propuestas</a></li>
-        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="barrios.html">Barrios</a></li>
         <li><a href="#unete">Participa</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -461,36 +521,39 @@
 
 
 <script>
-  /* Actualidad automática: lee noticias.html, tribunas.html y agenda.html y rellena las tres tarjetas de la sección
-     Actualidad con la última noticia, la última tribuna y el próximo acto. Si no puede leerlas (sin servidor o sin
-     conexión) se quedan las tarjetas que ya hay escritas en el HTML. */
+  /* Actualidad automática: lee noticias.html, tribunas.html, barrios.html y propuestas.html y rellena las tarjetas:
+     las 3 últimas noticias, la última tribuna, la próxima visita de barrio y el resumen de propuestas.
+     Si no puede leerlas (sin servidor o sin conexión) se quedan las tarjetas que ya hay escritas en el HTML. */
   (function () {
     var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var ABR = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
     function pedir(url) {
       return fetch(url, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(url); return r.text(); })
         .then(function (t) { return new DOMParser().parseFromString(t, 'text/html'); });
     }
     function txt(el, sel) { var e = el.querySelector(sel); return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; }
     function poner(card, sel, valor) { var e = card.querySelector(sel); if (e) e.textContent = valor; }
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
-    /* ---- última noticia ---- */
+    /* ---- las 3 últimas noticias ---- */
     pedir('noticias.html').then(function (doc) {
-      var mejor = null, iso = '';
-      doc.querySelectorAll('.news-grid .news-card').forEach(function (c) {
+      var lista = [];
+      doc.querySelectorAll('.news-grid .news-card').forEach(function (c, i) {
         var m = txt(c, '.date').match(/(\d{1,2}) de ([a-záéíóú]+) de (\d{4})/i);
         if (!m) return;
         var n = MESES.indexOf(m[2].toLowerCase()) + 1; if (!n) return;
-        var f = m[3] + '-' + ('0' + n).slice(-2) + '-' + ('0' + m[1]).slice(-2);
-        if (!mejor || f > iso) { mejor = c; iso = f; }
+        lista.push({ c: c, i: i, iso: m[3] + '-' + ('0' + n).slice(-2) + '-' + ('0' + m[1]).slice(-2) });
       });
-      if (!mejor) return;
-      var card = document.getElementById('actNoticia');
-      var img = mejor.querySelector('img'), foto = card.querySelector('.act-foto');
-      if (img && foto) { foto.setAttribute('src', img.getAttribute('src')); foto.setAttribute('alt', img.getAttribute('alt') || ''); }
-      var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = txt(mejor, '.date');
-      poner(card, '.act-title', txt(mejor, 'h3'));
-      var p = mejor.querySelector('p'); if (p) poner(card, '.act-text', p.textContent.replace(/\s+/g, ' ').trim());
-      if (mejor.id) card.querySelector('.act-link').setAttribute('href', 'noticias.html#' + mejor.id);
+      lista.sort(function (a, b) { return a.iso < b.iso ? 1 : a.iso > b.iso ? -1 : a.i - b.i; });
+      lista.slice(0, 3).forEach(function (x, k) {
+        var card = document.getElementById('actNoticia' + (k + 1)); if (!card) return;
+        var mejor = x.c, img = mejor.querySelector('img'), foto = card.querySelector('.act-foto');
+        if (img && foto) { foto.setAttribute('src', img.getAttribute('src')); foto.setAttribute('alt', img.getAttribute('alt') || ''); }
+        var t = card.querySelector('time'); t.setAttribute('datetime', x.iso); t.textContent = txt(mejor, '.date');
+        poner(card, '.act-title', txt(mejor, 'h3'));
+        var p = mejor.querySelector('p'); if (p) poner(card, '.act-text', p.textContent.replace(/\s+/g, ' ').trim());
+        if (mejor.id) card.querySelector('.act-link').setAttribute('href', 'noticias.html#' + mejor.id);
+      });
     }).catch(function () {});
 
     /* ---- última tribuna ---- */
@@ -517,46 +580,65 @@
       av.appendChild(document.createTextNode(ini.trim()));
     }).catch(function () {});
 
-    /* ---- próximo acto de la agenda ---- */
-    pedir('agenda.html').then(function (doc) {
-      var ahora = Date.now(), proximos = [];
+    /* ---- próxima visita de barrio (o la estándar) ---- */
+    function finSemana(d) {
+      var dias = d.getDay() === 0 ? 0 : 7 - d.getDay();
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate() + dias, 23, 59, 59, 999).getTime();
+    }
+    pedir('barrios.html').then(function (doc) {
+      var ahora = Date.now(), proximas = [];
       doc.querySelectorAll('.evento').forEach(function (e) {
         var raw = e.getAttribute('data-fecha') || '', conHora = raw.indexOf('T') > -1;
         var d = new Date(conHora ? raw : raw + 'T00:00'); if (isNaN(d)) return;
-        var fin = new Date(e.getAttribute('data-fin') || ''), base = isNaN(fin) ? d : fin;
-        var finMs = new Date(base.getFullYear(), base.getMonth(), base.getDate() + 1, 8, 0).getTime(); /* 8:00 del día siguiente al último día */
-        if (finMs >= ahora) proximos.push({ e: e, d: d, conHora: conHora, fijo: e.hasAttribute('data-fijo') });
+        var fin = new Date(e.getAttribute('data-fin') || '');
+        if (finSemana(isNaN(fin) ? d : fin) >= ahora) proximas.push({ e: e, d: d, conHora: conHora, fijo: e.hasAttribute('data-fijo') });
       });
-      proximos.sort(function (a, b) { return a.d - b.d; });
-      var card = document.getElementById('actAgenda'), media = card.querySelector('.act-media');
-      if (!proximos.length) {
-        media.querySelector('.act-fecha-grande').textContent = 'Agenda';
-        media.querySelector('.act-fecha-peq').textContent = '';
-        poner(card, '.act-fechatxt', '');
-        poner(card, '.act-title', 'Próximamente');
-        poner(card, '.act-text', 'Ahora mismo no hay actos convocados. Consulta la agenda para ver lo último que hemos hecho.');
-        return;
-      }
-      var x = proximos[0], e = x.e, tipo = txt(e, '.ev-tag'), titulo = txt(e, '.ev-titulo');
-      var grande, peq, cuando;
-      if (x.fijo) {
-        var fechaTxt = txt(e, '.ev-fechatxt'), horaTxt = txt(e, '.ev-hora');
-        grande = txt(e, '.ev-dia');
-        peq = txt(e, '.ev-mes') || fechaTxt.split(' de ')[0];
-        cuando = fechaTxt + (horaTxt ? ' | ' + horaTxt : '');
+      proximas.sort(function (a, b) { return a.d - b.d; });
+      var card = document.getElementById('actVisita'), media = card.querySelector('.act-media');
+      var grande, peq, cuando, titulo, texto;
+      if (!proximas.length) {
+        /* visita estándar: lunes a viernes de la semana siguiente, por la tarde */
+        var h = new Date(), dow = h.getDay();
+        var lun = new Date(h.getFullYear(), h.getMonth(), h.getDate() + (dow === 0 ? 1 : 8 - dow));
+        var vie = new Date(lun.getFullYear(), lun.getMonth(), lun.getDate() + 4);
+        var rango = lun.getMonth() === vie.getMonth()
+          ? lun.getDate() + '-' + vie.getDate() + ' de ' + MESES[lun.getMonth()]
+          : lun.getDate() + ' de ' + MESES[lun.getMonth()] + '-' + vie.getDate() + ' de ' + MESES[vie.getMonth()];
+        grande = ABR[lun.getMonth()].toUpperCase();
+        peq = lun.getMonth() === vie.getMonth() ? lun.getDate() + '-' + vie.getDate() : lun.getDate() + ' ' + ABR[lun.getMonth()] + '-' + vie.getDate() + ' ' + ABR[vie.getMonth()];
+        cuando = rango + ' | tarde'; titulo = 'Zona de El Puerto de Santa María';
+        texto = 'Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.';
       } else {
-        var dia = x.d.toLocaleDateString('es-ES', { weekday: 'long' });
-        grande = String(x.d.getDate());
-        peq = x.d.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '');
-        cuando = dia.charAt(0).toUpperCase() + dia.slice(1) + ' ' + x.d.getDate() + ' de ' + x.d.toLocaleDateString('es-ES', { month: 'long' }) +
-          (x.conHora ? ' | ' + x.d.getHours() + ':' + ('0' + x.d.getMinutes()).slice(-2) + ' h' : '');
+        var x = proximas[0], e = x.e;
+        titulo = txt(e, '.ev-titulo'); texto = txt(e, '.ev-desc');
+        if (x.fijo) {
+          var fechaTxt = txt(e, '.ev-fechatxt'), horaTxt = txt(e, '.ev-hora');
+          grande = txt(e, '.ev-dia'); peq = txt(e, '.ev-mes') || fechaTxt.split(' de ')[0];
+          cuando = fechaTxt + (horaTxt ? ' | ' + horaTxt : '');
+        } else {
+          grande = String(x.d.getDate()); peq = ABR[x.d.getMonth()];
+          cuando = cap(x.d.toLocaleDateString('es-ES', { weekday: 'long' })) + ' ' + x.d.getDate() + ' de ' + MESES[x.d.getMonth()] +
+            (x.conHora ? ' | ' + x.d.getHours() + ':' + ('0' + x.d.getMinutes()).slice(-2) + ' h' : '');
+        }
       }
       media.querySelector('.act-fecha-grande').textContent = grande;
       media.querySelector('.act-fecha-peq').textContent = peq;
       poner(card, '.act-fechatxt', cuando);
-      var primera = tipo.toLowerCase().split(' ')[0];
-      poner(card, '.act-title', (tipo && titulo.toLowerCase().indexOf(primera) === -1) ? tipo + ': ' + titulo : titulo);
-      poner(card, '.act-text', txt(e, '.ev-desc'));
+      poner(card, '.act-title', titulo);
+      poner(card, '.act-text', texto);
+    }).catch(function () {});
+
+    /* ---- resumen de propuestas ---- */
+    pedir('propuestas.html').then(function (doc) {
+      var props = doc.querySelectorAll('.prop'); if (!props.length) return;
+      var n = { aprobada: 0, rechazada: 0, sinvotacion: 0 };
+      props.forEach(function (p) { var r = p.getAttribute('data-res'); if (n[r] !== undefined) n[r]++; });
+      var card = document.getElementById('actPropuestas');
+      card.querySelector('[data-p="total"]').textContent = props.length;
+      ['aprobada', 'rechazada', 'sinvotacion'].forEach(function (k) {
+        card.querySelector('strong[data-p="' + k + '"]').textContent = n[k];
+        card.querySelector('[data-p="barra-' + k + '"]').style.flex = String(n[k]);
+      });
     }).catch(function () {});
   })();
 </script>
