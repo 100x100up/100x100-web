@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Propuestas en el Pleno | 100x100 Unidos Portuenses</title>
+<meta name="description" content="Mociones, preguntas y ruegos que hemos llevado al Pleno del Ayuntamiento de El Puerto de Santa María: qué pedimos, en qué pleno y cómo terminó la votación.">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 300; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-300.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-600.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 900; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-900.woff2') format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 500; font-display: swap; src: url('fonts/fraunces-v38-latin_latin-ext-500italic.woff2') format('woff2'); }
+  @font-face { font-family: 'Work Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/work-sans-v24-latin_latin-ext-regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Work Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/work-sans-v24-latin_latin-ext-500.woff2') format('woff2'); }
+  @font-face { font-family: 'Work Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/work-sans-v24-latin_latin-ext-600.woff2') format('woff2'); }
+
+  :root {
+    --ink: #1B1B1B;
+    --paper: #F7F6F2;
+    --paper-alt: #EFE6D8;
+    --orange: #EB6411;
+    --orange-dark: #C7530C;
+    --navy: #16323A;
+    --line: #DBD2C2;
+    --on-navy: #F2EDE3;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: 'Work Sans', system-ui, sans-serif; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .brand { font-family: 'Fraunces', Georgia, serif; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .btn {
+    display: inline-block; padding: 13px 26px; border-radius: 3px; font-weight: 600;
+    text-decoration: none; font-size: 0.95rem; border: 1.5px solid transparent; cursor: pointer;
+  }
+  .btn-solid { background: var(--orange); color: #fff; }
+  .btn-solid:hover { background: var(--orange-dark); }
+  .btn-outline { border-color: var(--ink); }
+
+  header {
+    position: sticky; top: 0; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+  .brand { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.02em; }
+  .brand img { height: auto; width: min(300px, calc(100vw - 130px)); display: block; }
+  @media (min-width: 860px) { .brand img { width: clamp(240px, 27vw, 340px); } }
+  .foot-brand .brand img { height: auto; width: min(340px, 100%); }
+  .brand span { color: var(--orange); }
+  nav.links { display: none; gap: 28px; font-size: 0.92rem; font-weight: 500; }
+  nav.links a { text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; }
+  nav.links a:hover { border-color: var(--orange); }
+  @media (min-width: 1100px) { nav.links { display: flex; } }
+  .nav-toggle {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; border: none; background: none; cursor: pointer; padding: 0;
+  }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); }
+  @media (min-width: 1100px) { .nav-toggle { display: none; } }
+  nav.links.open {
+    display: flex; flex-direction: column; gap: 4px;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 8px 24px 20px;
+  }
+  nav.links.open a { padding: 10px 0; border-bottom: 1px solid var(--line); }
+
+  .hero { padding: 72px 24px 40px; }
+  .hero-grid { display: grid; gap: 40px; max-width: 1120px; margin: 0 auto; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.3fr 0.9fr; align-items: end; } }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); line-height: 1.05; font-weight: 900; margin: 0 0 20px; letter-spacing: -0.01em; }
+  .hero p.lede { font-size: 1.15rem; max-width: 46ch; opacity: 0.85; margin: 0 0 28px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .countdown-box { border: 1.5px solid var(--line); border-radius: 4px; padding: 26px; }
+  .countdown-box .label { font-size: 0.8rem; opacity: 0.65; margin-bottom: 4px; }
+  .countdown-box .place { font-weight: 600; margin-bottom: 18px; }
+  .countdown-nums { display: flex; gap: 18px; }
+  .countdown-nums div { text-align: left; }
+  .countdown-nums .n { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.1rem; color: var(--orange); line-height: 1; }
+  .countdown-nums .u { font-size: 0.72rem; opacity: 0.65; text-transform: lowercase; }
+
+  hr.rule { border: none; border-top: 1px solid var(--line); margin: 0; }
+
+  section { padding: 76px 24px; }
+  .section-head { max-width: 640px; margin-bottom: 44px; }
+  .kicker { font-weight: 600; color: var(--orange); margin: 0 0 8px; font-size: 0.95rem; }
+  .section-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); margin: 0; font-weight: 600; }
+
+  .project-grid { display: grid; gap: 44px; max-width: 1120px; margin: 0 auto; align-items: center; }
+  @media (min-width: 880px) { .project-grid { grid-template-columns: 0.9fr 1.1fr; } }
+  .project-grid p { max-width: 54ch; }
+  .philosophy-title { font-weight: 600; font-size: 0.85rem; text-transform: none; opacity: 0.6; margin: 26px 0 4px; }
+  .philosophy-item { margin: 14px 0; padding-left: 16px; border-left: 2px solid var(--orange); }
+  .philosophy-item h3 { font-style: italic; font-weight: 500; font-size: 1.15rem; margin: 0 0 4px; }
+  .philosophy-item p { margin: 0; opacity: 0.85; font-size: 0.96rem; }
+  .harbor-art { width: 100%; height: auto; }
+
+  .values-alt { background: var(--paper-alt); }
+  .values-list { max-width: 1120px; margin: 0 auto; display: grid; gap: 0; }
+  @media (min-width: 780px) { .values-list { grid-template-columns: repeat(3, 1fr); } }
+  .value-item { padding: 28px 0; border-top: 1px solid var(--line); }
+  @media (min-width: 780px) { .value-item { border-top: none; border-left: 1px solid var(--line); padding: 0 32px; } .value-item:first-child { border-left: none; padding-left: 0; } }
+  .value-item h3 { font-style: italic; font-weight: 500; font-size: 1.3rem; margin: 0 0 10px; }
+  .value-item p { margin: 0; opacity: 0.85; font-size: 0.98rem; }
+
+  .news-grid { max-width: 1120px; margin: 0 auto; display: grid; gap: 34px; }
+  @media (min-width: 780px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
+  .news-card { border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
+  .news-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 3px; margin-bottom: 14px; display: block; }
+  .news-card .date { font-size: 0.82rem; opacity: 0.6; margin-bottom: 8px; }
+  .news-card h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; line-height: 1.3; }
+  .news-card p { font-size: 0.92rem; opacity: 0.8; margin: 0 0 10px; }
+  .news-card details summary { cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--orange); list-style: none; }
+  .news-card details summary::-webkit-details-marker { display: none; }
+  .news-card details[open] summary { margin-bottom: 10px; }
+  .news-card details .full p { opacity: 0.9; margin: 0 0 10px; }
+
+  .join { background: var(--navy); color: var(--on-navy); }
+  .join .section-head h2 { color: var(--on-navy); }
+  .join .kicker { color: var(--orange); }
+  .join-grid { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
+  @media (min-width: 880px) { .join-grid { grid-template-columns: 1fr 1.1fr; } }
+  .join-grid p { opacity: 0.85; max-width: 42ch; }
+  form { display: grid; gap: 14px; }
+  .form-row { display: grid; gap: 14px; }
+  @media (min-width: 560px) { .form-row.two { grid-template-columns: 1fr 1fr; } }
+  input, textarea {
+    width: 100%; padding: 12px 14px; border-radius: 3px; border: 1.5px solid rgba(242,237,227,0.3);
+    background: rgba(242,237,227,0.06); color: var(--on-navy); font-family: inherit; font-size: 0.95rem;
+  }
+  input::placeholder, textarea::placeholder { color: rgba(242,237,227,0.5); }
+  textarea { min-height: 90px; resize: vertical; }
+  .hp { position: absolute; left: -9999px; top: -9999px; }
+  .consent { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; opacity: 0.85; }
+  .consent input { width: auto; margin-top: 3px; }
+  .join .btn-solid { justify-self: start; }
+  #joinMsg { font-size: 0.9rem; margin-top: 4px; }
+
+  footer { background: var(--navy); color: var(--on-navy); border-top: 1px solid rgba(242,237,227,0.15); }
+  .foot-grid {
+    max-width: 1120px; margin: 0 auto; padding: 56px 24px 28px; display: grid; gap: 22px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "brand" "contact" "nav";
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .foot-grid { gap: 36px; grid-template-columns: 1.2fr 1fr 1fr; grid-template-areas: "brand nav contact"; }
+  }
+  .foot-brand { grid-area: brand; }
+  .foot-nav { grid-area: nav; }
+  .foot-contact { grid-area: contact; }
+  .foot-grid h4 { margin: 0 0 14px; font-size: 0.85rem; opacity: 0.7; font-weight: 500; }
+  .foot-grid ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .foot-grid a { text-decoration: none; font-size: 0.95rem; }
+  .foot-grid a:hover { color: var(--orange); }
+  .foot-nav ul { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+  .foot-contact .email-line a { font-size: clamp(0.7rem, 3.7vw, 0.95rem); overflow-wrap: anywhere; }
+  @media (min-width: 960px) { .foot-contact .email-line a { font-size: 0.85rem; } }
+  .foot-social { display: flex; gap: 16px; margin-top: 16px; }
+  .foot-social a { color: #fff; opacity: 0.9; display: inline-flex; }
+  .foot-social a:hover { opacity: 1; color: var(--orange); }
+  .foot-social svg { width: 20px; height: 20px; }
+  .foot-contact .email-line { display: flex; align-items: center; gap: 8px; }
+  .foot-contact .email-line svg { width: 16px; height: 16px; flex-shrink: 0; color: #fff; opacity: 0.85; }
+  .foot-contact .btn-solid { margin-top: 4px; display: inline-block; padding: 10px 18px; font-size: 0.9rem; }
+  .foot-bottom { border-top: 1px solid rgba(242,237,227,0.15); padding: 18px 24px; font-size: 0.82rem; opacity: 0.7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; max-width: 1120px; margin: 0 auto; }
+  .foot-bottom { border-top: 1px solid rgba(242,237,227,0.15); padding: 18px 24px; font-size: 0.82rem; opacity: 0.7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; max-width: 1120px; margin: 0 auto; }
+</style>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  .page-hero { padding: 48px 24px 0; max-width: 1120px; margin: 0 auto; }
+  .page-hero .back { font-size: 0.9rem; opacity: 0.7; text-decoration: none; }
+  .page-hero .back:hover { color: var(--orange); opacity: 1; }
+  .page-hero h1 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 600; line-height: 1.2; color: var(--orange); margin: 22px 0 10px; }
+  .page-hero .lede { opacity: 0.75; font-size: 1.05rem; margin: 0; }
+
+  .prop-wrap { max-width: 1120px; margin: 0 auto; padding: 30px 24px 90px; }
+  .prop-wrap :where(section) { padding: 0; } /* anula el relleno general de las secciones */
+
+  /* Cómo leer la página */
+  .como-leer { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 18px; }
+  @media (min-width: 800px) { .como-leer { grid-template-columns: repeat(3, 1fr); } }
+  .def { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; background: var(--paper-alt); border-radius: 12px; font-size: 0.92rem; }
+  .def strong { font-family: 'Fraunces', Georgia, serif; font-size: 1.05rem; font-weight: 600; }
+  .def span { opacity: 0.8; }
+  .aviso { margin: 0 0 30px; font-size: 0.93rem; opacity: 0.75; }
+
+  /* Cifras */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 30px; }
+  @media (min-width: 800px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stat { padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+  .stat-num { display: block; font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 2.4rem; line-height: 1; color: var(--orange); }
+  .stat-etq { display: block; margin-top: 6px; font-size: 0.88rem; opacity: 0.75; }
+
+  /* Filtros */
+  .filtros { margin-bottom: 8px; padding: 20px 22px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+  .filtro-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .filtro-fila + .filtro-fila { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .filtro-etq { font-weight: 600; font-size: 0.9rem; min-width: 44px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { cursor: pointer; font: inherit; font-size: 0.88rem; font-weight: 500; padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
+  .chip span { margin-left: 4px; opacity: 0.55; font-weight: 600; }
+  .chip:hover { border-color: var(--orange); }
+  .chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .chip[aria-pressed="true"] span { opacity: 0.85; }
+  .chip:focus-visible, .filtros select:focus-visible, .limpiar:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .filtro-fila--sec label { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; }
+  .filtros select { font: inherit; font-size: 0.9rem; font-weight: 500; padding: 7px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); }
+  .limpiar { cursor: pointer; font: inherit; font-size: 0.88rem; font-weight: 600; color: var(--orange-dark); background: none; border: none; text-decoration: underline; text-underline-offset: 3px; padding: 6px 4px; }
+  .filtro-cuenta { margin: 16px 0 0; font-size: 0.85rem; opacity: 0.65; }
+
+  /* Plenos */
+  .pleno { margin-top: 44px; }
+  .pleno-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+  .pleno-head h2 { margin: 0; font-size: clamp(1.4rem, 2.6vw, 1.8rem); font-weight: 600; line-height: 1.2; }
+  .pleno-fecha { margin: 2px 0 0; font-size: 0.9rem; opacity: 0.65; }
+  .pleno-enlaces { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0; font-size: 0.88rem; font-weight: 600; }
+  .pleno-enlaces a { display: inline-flex; align-items: center; gap: 6px; color: var(--orange-dark); text-decoration: none; }
+  .pleno-enlaces a:hover, .pleno-enlaces a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Tarjetas: rejilla simétrica, todas del mismo alto en cada fila */
+  .prop-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 700px)  { .prop-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1020px) { .prop-grid { grid-template-columns: repeat(3, 1fr); } }
+  .prop { display: flex; flex-direction: column; padding: 24px 24px 20px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+  .prop:hover, .prop:focus-within { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); border-color: var(--orange); }
+  @media (prefers-reduced-motion: reduce) { .prop { transition: none; } .prop:hover, .prop:focus-within { transform: none; } }
+  .prop[hidden], .pleno[hidden] { display: none; }
+  .prop-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; margin-bottom: 12px; }
+  .prop-tipo { padding: 3px 12px; border-radius: 999px; background: var(--paper-alt); font-size: 0.78rem; font-weight: 600; }
+  .prop-tema { font-size: 0.8rem; font-weight: 600; color: var(--orange-dark); text-align: right; }
+  .prop-titulo { margin: 0 0 10px; font-size: 1.2rem; font-weight: 600; line-height: 1.28; }
+  .prop-resumen { flex-grow: 1; margin: 0 0 14px; font-size: 0.93rem; opacity: 0.82; }
+  .prop-res { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .prop-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; }
+  .prop-res--aprobada .prop-badge { background: var(--orange); color: #fff; }
+  .prop-res--rechazada .prop-badge { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); padding: 3px 11px; }
+  .prop-res--sinvotacion .prop-badge { background: var(--paper-alt); color: var(--ink); }
+  .prop-voto { font-size: 0.82rem; opacity: 0.7; }
+
+  .vacio { margin: 40px 0 0; padding: 26px; text-align: center; border: 1.5px dashed var(--line); border-radius: 12px; opacity: 0.85; }
+  .fuente { margin: 56px 0 0; font-size: 0.85rem; opacity: 0.6; }
+</style>
+
+
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="brand"><img src="img/logo-cabecera.png" alt="100x100 Unidos Portuenses"></a>
+    <nav class="links">
+      <a href="index.html#proyecto">El proyecto</a>
+      <a href="ideario.html">Ideario</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="tribunas.html">Tribunas</a>
+      <a href="#">Propuestas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="index.html#unete">Participa</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Abrir menú" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <a href="index.html" class="back">&larr; Volver al inicio</a>
+  <h1>Propuestas en el Pleno</h1>
+  <p class="lede">Las mociones, preguntas y ruegos que hemos llevado al Pleno del Ayuntamiento de El Puerto de Santa María en la segunda mitad de 2026: qué pedimos, en qué pleno y cómo terminó la votación.</p>
+</div>
+
+<main class="prop-wrap">
+  <!-- ==========================================================================
+       PROPUESTAS · CÓMO AÑADIR UNA PROPUESTA O UN PLENO NUEVO
+       Los plenos van de más reciente a más antiguo. Para un pleno nuevo copia un bloque <section class="pleno"> completo
+       y ponlo el primero: cambia el mes, la fecha (texto y datetime), el enlace de YouTube y el del extracto oficial.
+       Para una propuesta nueva copia un <article class="prop"> dentro de su pleno y cambia:
+         data-tema   = barrios | educacion | vivienda | mayores | medioambiente | movilidad | transparencia | empresas
+         data-tipo   = mocion | pregunta | ruego
+         data-res    = aprobada | rechazada | sinvotacion   (las preguntas y los ruegos no se votan: sinvotacion)
+         y los textos: etiqueta del tipo, tema, título, resumen, resultado (Aprobada / Rechazada / Sin votación) y cómo se votó.
+       Los resultados salen de los extractos oficiales que publica el Ayuntamiento en su Portal de Transparencia.
+       Los contadores y los filtros se actualizan solos al cargar la página.
+       ========================================================================== -->
+
+  <section class="como-leer" aria-labelledby="comoLeer">
+    <h2 id="comoLeer" class="sr-only">Cómo leer esta página</h2>
+    <div class="def"><strong>Moción</strong><span>Una propuesta que el Pleno vota. Si se aprueba, el Pleno pide al Gobierno que actúe.</span></div>
+    <div class="def"><strong>Pregunta</strong><span>Pedimos al Gobierno que informe de algo en el Pleno. No se vota.</span></div>
+    <div class="def"><strong>Ruego</strong><span>Pedimos que se haga algo concreto. Se plantea en el Pleno, pero no se vota.</span></div>
+  </section>
+  <p class="aviso">Que una moción se apruebe es el primer paso: el Pleno insta al Gobierno a actuar, pero eso no significa que ya esté hecho. Cuando un acuerdo no se cumple, volvemos a llevarlo al Pleno.</p>
+
+  <section class="stats" aria-label="Resumen" id="stats">
+    <div class="stat"><span class="stat-num" data-stat="total">18</span><span class="stat-etq">propuestas</span></div>
+    <div class="stat"><span class="stat-num" data-stat="aprobada">12</span><span class="stat-etq">aprobadas</span></div>
+    <div class="stat"><span class="stat-num" data-stat="rechazada">2</span><span class="stat-etq">rechazadas</span></div>
+    <div class="stat"><span class="stat-num" data-stat="sinvotacion">4</span><span class="stat-etq">preguntas y ruegos sin votación</span></div>
+  </section>
+
+  <section class="filtros" aria-label="Filtros">
+    <div class="filtro-fila">
+      <span class="filtro-etq" id="etqTema">Tema</span>
+      <div class="chips" role="group" aria-labelledby="etqTema" id="chipsTema"><button type="button" class="chip" data-valor="todos" aria-pressed="true">Todos <span>18</span></button><button type="button" class="chip" data-valor="barrios" aria-pressed="false">Barrios <span>5</span></button><button type="button" class="chip" data-valor="educacion" aria-pressed="false">Educación <span>2</span></button><button type="button" class="chip" data-valor="vivienda" aria-pressed="false">Vivienda y Centro Histórico <span>2</span></button><button type="button" class="chip" data-valor="mayores" aria-pressed="false">Mayores <span>1</span></button><button type="button" class="chip" data-valor="medioambiente" aria-pressed="false">Medio ambiente <span>2</span></button><button type="button" class="chip" data-valor="movilidad" aria-pressed="false">Movilidad y seguridad <span>3</span></button><button type="button" class="chip" data-valor="transparencia" aria-pressed="false">Transparencia <span>2</span></button><button type="button" class="chip" data-valor="empresas" aria-pressed="false">Empresas y empleo <span>1</span></button></div>
+    </div>
+    <div class="filtro-fila filtro-fila--sec">
+      <label>Tipo
+        <select id="fTipo"><option value="todos">Todos</option><option value="mocion">Mociones</option><option value="pregunta">Preguntas</option><option value="ruego">Ruegos</option></select>
+      </label>
+      <label>Resultado
+        <select id="fRes"><option value="todos">Todos</option><option value="aprobada">Aprobadas</option><option value="rechazada">Rechazadas</option><option value="sinvotacion">Sin votación</option></select>
+      </label>
+      <button type="button" class="limpiar" id="limpiar" hidden>Quitar filtros</button>
+    </div>
+    <p class="filtro-cuenta" id="cuenta" aria-live="polite">Mostrando 18 de 18 propuestas</p>
+  </section>
+
+    <section class="pleno" id="pleno-noviembre" data-pleno="noviembre">
+      <div class="pleno-head">
+        <div><h2>Pleno de noviembre</h2><p class="pleno-fecha"><time datetime="2026-11-06">6 de noviembre de 2026</time></p></div>
+        <p class="pleno-enlaces"><a href="https://www.youtube.com/live/6fwNJk54nus" target="_blank" rel="noopener">Ver el pleno en YouTube <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a><a href="https://transparencia.elpuertodesantamaria.es/uploads/2026/rs_132-ple_extractos_06-11-2026-EXTRACTO.pdf" target="_blank" rel="noopener">Extracto oficial (PDF) <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
+      </div>
+      <div class="prop-grid">
+        <article class="prop" data-tema="educacion" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Educación</span></div>
+          <h3 class="prop-titulo">Más y mejores salas de estudio</h3>
+          <p class="prop-resumen">Un diagnóstico de las salas de estudio (puestos, horarios, ocupación y demanda sin atender), mejores horarios, pruebas de apertura nocturna en épocas de exámenes y un estudio para crear una red de espacios de estudio y trabajo en grupo.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="medioambiente" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Medio ambiente</span></div>
+          <h3 class="prop-titulo">Estudiar las aves urbanas: gorriones, cotorras y palomas</h3>
+          <p class="prop-resumen">Estudiar cómo evolucionan en la ciudad las poblaciones de gorriones, cotorras y palomas, valorar medidas de control de las cotorras y de las concentraciones de palomas, y proteger a las aves autóctonas.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="vivienda" data-tipo="mocion" data-res="rechazada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Vivienda y Centro Histórico</span></div>
+          <h3 class="prop-titulo">Mesa de la Vivienda y Mesa del Centro Histórico</h3>
+          <p class="prop-resumen">Dos espacios estables de diálogo con vecinos, entidades y profesionales para abordar la vivienda y la recuperación del casco histórico. El Pleno rechazó la moción.</p>
+          <div class="prop-res prop-res--rechazada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg> Rechazada</span><span class="prop-voto">por mayoría absoluta</span></div>
+        </article>
+        <article class="prop" data-tema="barrios" data-tipo="pregunta" data-res="sinvotacion">
+          <div class="prop-top"><span class="prop-tipo">Pregunta</span><span class="prop-tema">Barrios</span></div>
+          <h3 class="prop-titulo">Atención a las demandas de los vecinos de Los Romanos</h3>
+          <p class="prop-resumen">Preguntamos qué mecanismos tiene el Gobierno para atender las peticiones de reunión y las reclamaciones de los vecinos de Los Romanos.</p>
+          <div class="prop-res prop-res--sinvotacion"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h8"/></svg> Sin votación</span><span class="prop-voto">las preguntas y los ruegos no se votan</span></div>
+        </article>
+        <article class="prop" data-tema="barrios" data-tipo="ruego" data-res="sinvotacion">
+          <div class="prop-top"><span class="prop-tipo">Ruego</span><span class="prop-tema">Barrios</span></div>
+          <h3 class="prop-titulo">Baldosas en mal estado entre los bloques de La Gobernaora</h3>
+          <p class="prop-resumen">Ya ha habido caídas de personas mayores. Rogamos que se inspeccionen con urgencia las zonas enlosadas entre los bloques y se reparen los pavimentos, empezando por los de mayor riesgo.</p>
+          <div class="prop-res prop-res--sinvotacion"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h8"/></svg> Sin votación</span><span class="prop-voto">las preguntas y los ruegos no se votan</span></div>
+        </article>
+      </div>
+    </section>
+    <section class="pleno" id="pleno-octubre" data-pleno="octubre">
+      <div class="pleno-head">
+        <div><h2>Pleno de octubre</h2><p class="pleno-fecha"><time datetime="2026-10-02">2 de octubre de 2026</time></p></div>
+        <p class="pleno-enlaces"><a href="https://www.youtube.com/live/iS753GdlolE" target="_blank" rel="noopener">Ver el pleno en YouTube <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a><a href="https://transparencia.elpuertodesantamaria.es/uploads/2026/rs_129-ple_extractos_PLENO_2-10-2026_EXTRACTO.pdf" target="_blank" rel="noopener">Extracto oficial (PDF) <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
+      </div>
+      <div class="prop-grid">
+        <article class="prop" data-tema="mayores" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Mayores</span></div>
+          <h3 class="prop-titulo">Plan municipal contra la soledad no deseada de las personas mayores</h3>
+          <p class="prop-resumen">Un plan con diagnóstico, objetivos, calendario e indicadores, que parta de los recursos ya existentes, coordine a las entidades y contemple acompañamiento y voluntariado.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="barrios" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Barrios</span></div>
+          <h3 class="prop-titulo">Limpieza y mantenimiento de Vallealto-El Tomillar</h3>
+          <p class="prop-resumen">Tras recoger las demandas de los vecinos, pedimos una actuación integral: más limpieza y contenedores bien ubicados, control de roedores e insectos, y cuidado de parques, acerados y accesos.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="empresas" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Empresas y empleo</span></div>
+          <h3 class="prop-titulo">Diagnóstico de los polígonos El Palmar y Las Salinas</h3>
+          <p class="prop-resumen">Un diagnóstico calle por calle, junto con la Asociación de Empresarios, del estado de asfaltado, aceras, iluminación y limpieza, y una programación de actuaciones con prioridades y seguimiento.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="vivienda" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Vivienda y Centro Histórico</span></div>
+          <h3 class="prop-titulo">Evaluar las ayudas a la rehabilitación en el Casco Histórico</h3>
+          <p class="prop-resumen">Analizar qué resultados han dado en los últimos cinco años las ayudas a obras en el Casco Histórico (uso, recursos y viviendas recuperadas) para mejorar los incentivos con datos.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+      </div>
+    </section>
+    <section class="pleno" id="pleno-septiembre" data-pleno="septiembre">
+      <div class="pleno-head">
+        <div><h2>Pleno de septiembre</h2><p class="pleno-fecha"><time datetime="2026-09-04">4 de septiembre de 2026</time></p></div>
+        <p class="pleno-enlaces"><a href="https://www.youtube.com/live/Cv0tIJIjqng" target="_blank" rel="noopener">Ver el pleno en YouTube <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a><a href="https://transparencia.elpuertodesantamaria.es/uploads/2026/rs_128-ple_extractos_EXTRACTO_PLENO_04092026.pdf" target="_blank" rel="noopener">Extracto oficial (PDF) <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
+      </div>
+      <div class="prop-grid">
+        <article class="prop" data-tema="barrios" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Barrios</span></div>
+          <h3 class="prop-titulo">Plan anual de mantenimiento urbano por barriadas</h3>
+          <p class="prop-resumen">Que cada año se elabore un plan que recoja lo que necesita cada barriada, con criterios claros de prioridad, un calendario de actuaciones y un balance público de lo ejecutado.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="movilidad" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Movilidad y seguridad</span></div>
+          <h3 class="prop-titulo">Plan de seguridad y convivencia para el verano y el ocio nocturno</h3>
+          <p class="prop-resumen">Convertir los dispositivos de verano en un plan estable: zonas y horarios prioritarios, recursos previstos, coordinación entre cuerpos de seguridad y una evaluación al terminar la temporada.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="transparencia" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Transparencia</span></div>
+          <h3 class="prop-titulo">Cumplir el acuerdo sobre la formación académica de los concejales</h3>
+          <p class="prop-resumen">Un año después de aprobarse, la información académica y profesional de los miembros de la Corporación seguía sin actualizarse. Pedimos cumplirlo de forma efectiva.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por mayoría simple</span></div>
+        </article>
+        <article class="prop" data-tema="transparencia" data-tipo="mocion" data-res="rechazada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Transparencia</span></div>
+          <h3 class="prop-titulo">Transparencia sobre la invitación a la final del Mundial</h3>
+          <p class="prop-resumen">Pedimos hacer pública, y facilitar a los grupos municipales, la invitación que recibió el alcalde para asistir a la final de la Copa Mundial de la FIFA.</p>
+          <div class="prop-res prop-res--rechazada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg> Rechazada</span><span class="prop-voto">por mayoría absoluta</span></div>
+        </article>
+        <article class="prop" data-tema="movilidad" data-tipo="pregunta" data-res="sinvotacion">
+          <div class="prop-top"><span class="prop-tipo">Pregunta</span><span class="prop-tema">Movilidad y seguridad</span></div>
+          <h3 class="prop-titulo">Una parada de autobús en Angelita Alta</h3>
+          <p class="prop-resumen">Preguntamos si el próximo contrato del transporte urbano incluirá una parada en Angelita Alta, una zona que crece con nuevas viviendas y servicios.</p>
+          <div class="prop-res prop-res--sinvotacion"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h8"/></svg> Sin votación</span><span class="prop-voto">las preguntas y los ruegos no se votan</span></div>
+        </article>
+        <article class="prop" data-tema="movilidad" data-tipo="ruego" data-res="sinvotacion">
+          <div class="prop-top"><span class="prop-tipo">Ruego</span><span class="prop-tema">Movilidad y seguridad</span></div>
+          <h3 class="prop-titulo">Seguridad vial en la avenida de Sanlúcar</h3>
+          <p class="prop-resumen">Los vecinos denuncian exceso de velocidad por la noche. Rogamos instalar resaltos u otras medidas y reforzar la vigilancia en horario nocturno.</p>
+          <div class="prop-res prop-res--sinvotacion"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h8"/></svg> Sin votación</span><span class="prop-voto">las preguntas y los ruegos no se votan</span></div>
+        </article>
+      </div>
+    </section>
+    <section class="pleno" id="pleno-julio" data-pleno="julio">
+      <div class="pleno-head">
+        <div><h2>Pleno de julio</h2><p class="pleno-fecha"><time datetime="2026-07-03">3 de julio de 2026</time></p></div>
+        <p class="pleno-enlaces"><a href="https://www.youtube.com/watch?v=ZzhAS09hyf0" target="_blank" rel="noopener">Ver el pleno en YouTube <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a><a href="https://transparencia.elpuertodesantamaria.es/uploads/2026/rs_127-ple_extractos_EXTRACTO_PLENO_03-07-2026.pdf" target="_blank" rel="noopener">Extracto oficial (PDF) <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
+      </div>
+      <div class="prop-grid">
+        <article class="prop" data-tema="educacion" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Educación</span></div>
+          <h3 class="prop-titulo">Que el IES Pedro Muñoz Seca no pague los daños de su muro</h3>
+          <p class="prop-resumen">El instituto tuvo que asumir gastos de seguridad por los daños en su muro perimetral. Pedimos que se le reintegren a quien resulte responsable y que el Ayuntamiento lo gestione.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="barrios" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Barrios</span></div>
+          <h3 class="prop-titulo">Alumbrado del Paseo de La Puntilla y Aculadero</h3>
+          <p class="prop-resumen">Una revisión integral y urgente del alumbrado público del paseo, para localizar y reparar las farolas y luminarias averiadas o apagadas.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+        <article class="prop" data-tema="medioambiente" data-tipo="mocion" data-res="aprobada">
+          <div class="prop-top"><span class="prop-tipo">Moción</span><span class="prop-tema">Medio ambiente</span></div>
+          <h3 class="prop-titulo">Red municipal de refugios climáticos</h3>
+          <p class="prop-resumen">Poner en marcha de verdad la red de refugios climáticos que el Pleno ya aprobó en 2024: espacios frescos y accesibles para protegerse de las olas de calor.</p>
+          <div class="prop-res prop-res--aprobada"><span class="prop-badge"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg> Aprobada</span><span class="prop-voto">por unanimidad</span></div>
+        </article>
+      </div>
+    </section>
+
+  <p class="vacio" id="vacio" hidden>No hay propuestas con esos filtros. Prueba con otro tema o quita los filtros.</p>
+  <p class="fuente">Los resultados de las votaciones proceden de los extractos oficiales de los plenos que publica el Ayuntamiento de El Puerto de Santa María en su Portal de Transparencia (enlazados en cada pleno).</p>
+</main>
+
+<footer id="contacto">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="index.html" class="brand"><img src="img/logo-faldon.png" alt="100x100 Unidos Portuenses"></a>
+      <p style="opacity:0.75; max-width:32ch; margin-top:12px;">El futuro que nos merecemos.</p>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/100x100_unidos_portuenses/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.facebook.com/people/100x100-Unidos-Portuenses/61581433422215/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.5c0-.9.3-1.5 1.6-1.5h1.5V4.3C16.3 4.2 15.3 4 14.2 4c-2.4 0-4 1.5-4 4.2v2.3H7.7v3h2.5V21h3.3z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@100x100unidosportuenses" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3h2.4c.2 1.8 1.4 3.3 3.1 3.7v2.6c-1.2 0-2.3-.4-3.1-1v6.1c0 3-2.4 5.4-5.4 5.4S6 17.4 6 14.4c0-2.8 2.1-5.1 4.8-5.4v2.7c-1.2.3-2 1.4-2 2.7 0 1.5 1.3 2.8 2.8 2.8s2.9-1.3 2.9-2.8V3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="foot-nav">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="index.html#proyecto">El proyecto</a></li>
+        <li><a href="ideario.html">Ideario</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="tribunas.html">Tribunas</a></li>
+        <li><a href="propuestas.html">Propuestas</a></li>
+        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="index.html#unete">Participa</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="foot-contact">
+      <h4>Contacto</h4>
+      <div class="email-line">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 7 9-7"/></svg>
+        <a href="mailto:participa@100x100unidosportuenses.com">participa@<wbr>100x100unidosportuenses.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 100x100 Unidos Portuenses · Elecciones Municipales 2027</span>
+    <span><a href="aviso-legal.html">Aviso legal</a></span>
+  </div>
+</footer>
+
+<script>
+  var navToggle = document.getElementById('navToggle'), navLinks = document.querySelector('nav.links');
+  if (navToggle) {
+    navToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ navLinks.classList.remove('open'); }); });
+  }
+
+  /* Filtros de propuestas: tema (botones) + tipo y resultado (desplegables). Se combinan entre sí. */
+  (function () {
+    var tema = 'todos';
+    var chips = document.querySelectorAll('#chipsTema .chip');
+    var selTipo = document.getElementById('fTipo'), selRes = document.getElementById('fRes');
+    var props = Array.prototype.slice.call(document.querySelectorAll('.prop'));
+    var plenos = Array.prototype.slice.call(document.querySelectorAll('.pleno'));
+    var cuenta = document.getElementById('cuenta'), vacio = document.getElementById('vacio'), limpiar = document.getElementById('limpiar');
+
+    function contar(attr, valor) { return props.filter(function (p) { return p.getAttribute(attr) === valor; }).length; }
+    function pintarCifras() {
+      var t = document.querySelector('[data-stat="total"]'); if (t) t.textContent = props.length;
+      ['aprobada', 'rechazada', 'sinvotacion'].forEach(function (k) {
+        var e = document.querySelector('[data-stat="' + k + '"]'); if (e) e.textContent = contar('data-res', k);
+      });
+      chips.forEach(function (c) {
+        var v = c.getAttribute('data-valor'), s = c.querySelector('span');
+        if (s) s.textContent = v === 'todos' ? props.length : contar('data-tema', v);
+      });
+    }
+    function aplicar() {
+      var tipo = selTipo.value, res = selRes.value, visibles = 0;
+      props.forEach(function (p) {
+        var ok = (tema === 'todos' || p.getAttribute('data-tema') === tema) &&
+                 (tipo === 'todos' || p.getAttribute('data-tipo') === tipo) &&
+                 (res === 'todos' || p.getAttribute('data-res') === res);
+        p.hidden = !ok; if (ok) visibles++;
+      });
+      plenos.forEach(function (g) { g.hidden = !g.querySelector('.prop:not([hidden])'); });
+      cuenta.textContent = 'Mostrando ' + visibles + ' de ' + props.length + ' propuestas';
+      vacio.hidden = visibles !== 0;
+      limpiar.hidden = (tema === 'todos' && tipo === 'todos' && res === 'todos');
+    }
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        tema = c.getAttribute('data-valor');
+        chips.forEach(function (o) { o.setAttribute('aria-pressed', o === c ? 'true' : 'false'); });
+        aplicar();
+      });
+    });
+    selTipo.addEventListener('change', aplicar);
+    selRes.addEventListener('change', aplicar);
+    limpiar.addEventListener('click', function () {
+      tema = 'todos'; selTipo.value = 'todos'; selRes.value = 'todos';
+      chips.forEach(function (o) { o.setAttribute('aria-pressed', o.getAttribute('data-valor') === 'todos' ? 'true' : 'false'); });
+      aplicar();
+    });
+    pintarCifras(); aplicar();
+  })();
+
+</script>
+</body>
+</html>
