@@ -64,13 +64,13 @@
   nav.links { display: none; gap: 28px; font-size: 0.92rem; font-weight: 500; }
   nav.links a { text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; }
   nav.links a:hover { border-color: var(--orange); }
-  @media (min-width: 860px) { nav.links { display: flex; } }
+  @media (min-width: 1100px) { nav.links { display: flex; } }
   .nav-toggle {
     display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
     width: 40px; height: 40px; border: none; background: none; cursor: pointer; padding: 0;
   }
   .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); }
-  @media (min-width: 860px) { .nav-toggle { display: none; } }
+  @media (min-width: 1100px) { .nav-toggle { display: none; } }
   nav.links.open {
     display: flex; flex-direction: column; gap: 4px;
     position: absolute; top: 100%; left: 0; right: 0;
@@ -147,7 +147,8 @@
 
   .values-alt { background: var(--paper-alt); }
   .values-alt .section-head { max-width: 1120px; margin: 0 auto 44px; }
-  #noticias .section-head { max-width: 1120px; margin: 0 auto 44px; }
+  #noticias .section-head, #trabajo .section-head { max-width: 1120px; margin: 0 auto 44px; }
+  #trabajo { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .values-list { max-width: 1120px; margin: 0 auto; display: grid; gap: 0; }
   @media (min-width: 780px) { .values-list { grid-template-columns: repeat(3, 1fr); } }
   .value-item { padding: 28px 0; border-top: 1px solid var(--line); }
@@ -155,27 +156,44 @@
   .value-item h3 { font-style: italic; font-weight: 500; font-size: 1.3rem; margin: 0 0 10px; }
   .value-item p { margin: 0; opacity: 0.85; font-size: 0.98rem; }
 
-  .news-grid { max-width: 1120px; margin: 0 auto; display: grid; gap: 34px; }
-  @media (min-width: 780px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
-  .news-card { border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
-  .news-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 3px; margin-bottom: 14px; display: block; }
-  .news-card .date { font-size: 0.82rem; opacity: 0.6; margin-bottom: 8px; }
-  .news-card h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px; line-height: 1.3; }
-  .news-card p { font-size: 0.92rem; opacity: 0.8; margin: 0 0 10px; }
-  .news-card details summary { cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--orange); list-style: none; }
-  .news-card details summary::-webkit-details-marker { display: none; }
-  .news-card details[open] summary { margin-bottom: 10px; }
-  .news-card details .full p { opacity: 0.9; margin: 0 0 10px; }
-  .news-card { scroll-margin-top: 92px; }
-  /* Recuadro naranja al pasar el ratón por encima (no abre la noticia).
-     Aparece con fundido de 1 s, se mantiene 0,4 s y se desvanece con fundido de 1 s (2,4 s en total) aunque el ratón siga encima.
-     Si hay alguna noticia abierta ("Leer más"), no sale en ninguna tarjeta; tampoco durante el efecto del enlace directo. */
-  .news-card { outline: 2px solid transparent; outline-offset: 8px; }
-  @keyframes hoverFrame { 0% { outline-color: transparent; } 41.67% { outline-color: var(--orange); } 58.33% { outline-color: var(--orange); } 100% { outline-color: transparent; } }
-  @media (hover: hover) { body:not(:has(.news-card details[open])) .news-card:not(:target):hover { animation: hoverFrame 2.4s ease-out; } }
-  .news-card details.has-close[open] > summary { display: none; }
-  .news-card .read-less { cursor: pointer; border: none; background: transparent; padding: 0; margin: 0; font-family: inherit; font-size: 0.88rem; font-weight: 600; color: var(--orange); }
-  .news-card .read-less:hover, .news-card .read-less:focus-visible { text-decoration: underline; }
+  /* Actualidad: tres últimas noticias; y debajo la última tribuna, la próxima visita de barrio y el resumen de propuestas.
+     El contenido se actualiza solo (script "Actualidad automática" al final); el HTML de las tarjetas es el respaldo. */
+  .act-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 28px; }
+  @media (min-width: 780px) { .act-grid { grid-template-columns: repeat(3, 1fr); } }
+  .act-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+  .act-card:hover, .act-card:focus-within { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); border-color: var(--orange); }
+  @media (prefers-reduced-motion: reduce) { .act-card { transition: none; } .act-card:hover, .act-card:focus-within { transform: none; } }
+  .act-media { position: relative; aspect-ratio: 16 / 10; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: var(--paper-alt); }
+  .act-foto { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .act-media--tribuna::before { content: '\201C'; position: absolute; top: 6px; left: 18px; font-family: 'Fraunces', Georgia, serif; font-weight: 900; font-size: 5rem; line-height: 1; color: #e0cfb6; }
+  .act-avatar { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; border-radius: 50%; overflow: hidden; background: var(--orange); color: #fff; font-weight: 700; font-size: 1.7rem; }
+  .act-avatar img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .act-media--agenda { background: var(--orange); color: #fff; }
+  .act-media--stats { background: var(--paper-alt); }
+  .act-media--stats .act-fecha-grande { color: var(--orange); font-size: clamp(2.8rem, 5.5vw, 3.6rem); }
+  .act-media--stats .act-fecha-peq { margin-top: 4px; font-size: 0.82rem; letter-spacing: 0.04em; }
+  .act-bar { display: flex; width: min(220px, 70%); height: 10px; margin-top: 18px; border-radius: 999px; overflow: hidden; background: #fff; }
+  .act-bar span { display: block; min-width: 0; }
+  .act-bar span:nth-child(1) { background: var(--orange); }
+  .act-bar span:nth-child(2) { background: var(--ink); }
+  .act-bar span:nth-child(3) { background: #d8ccb8; }
+  .act-stats { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 8px; font-size: 0.92rem; }
+  .act-stats li { display: flex; align-items: baseline; gap: 8px; }
+  .act-stats strong { font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; font-weight: 600; min-width: 1.4em; }
+  .act-punto { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; align-self: center; }
+  .act-punto--ok { background: var(--orange); }
+  .act-punto--no { background: var(--ink); }
+  .act-punto--sv { background: #d8ccb8; }
+  .act-fecha-grande { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(2.4rem, 5vw, 3.2rem); line-height: 1; }
+  .act-fecha-peq { margin-top: 8px; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .act-body { display: flex; flex-direction: column; flex: 1; padding: 20px 22px 18px; }
+  .act-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; font-size: 0.82rem; }
+  .act-tag { font-weight: 600; color: var(--orange-dark); white-space: nowrap; }
+  .act-fechatxt { opacity: 0.65; text-align: right; }
+  .act-title { font-size: 1.15rem; font-weight: 600; line-height: 1.3; margin: 0 0 10px; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .act-text { font-size: 0.92rem; opacity: 0.8; margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .act-link { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.92rem; font-weight: 600; color: var(--orange-dark); text-decoration: none; }
+  .act-link:hover, .act-link:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 
   .join { background: var(--paper-alt); color: var(--ink); }
   .join .section-head h2 { color: var(--ink); }
@@ -237,9 +255,11 @@
     <a href="#" class="brand"><img class="logo-color" src="img/logo-cabecera.png" alt="100x100 Unidos Portuenses"><img class="logo-blanco" src="img/logo-faldon.png" alt="" aria-hidden="true"></a>
     <nav class="links">
       <a href="#proyecto">El proyecto</a>
-      <a href="#ideario">Ideario</a>
-      <a href="#noticias">Noticias</a>
-      <a href="agenda.html">Agenda</a>
+      <a href="ideario.html">Ideario</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="tribunas.html">Tribunas</a>
+      <a href="propuestas.html">Propuestas</a>
+      <a href="barrios.html">Barrios</a>
       <a href="#unete">Participa</a>
       <a href="#contacto">Contacto</a>
     </nav>
@@ -333,64 +353,86 @@
 <section id="noticias">
   <div class="section-head">
     <p class="kicker">Actualidad</p>
-    <h2>Últimas noticias</h2>
+    <h2>Noticias</h2>
   </div>
-  <div class="news-grid">
-    <div class="news-card">
-      <img src="img/noticias/2026-11-11-100x100-unidos-portuenses-vota-en-contra-mesa-vivienda.jpg" loading="lazy" alt="Javier Botella observando la fachada deteriorada de una vivienda">
-      <div class="date">11 de noviembre de 2026</div>
-      <h3>Beardo vota en contra de crear una Mesa de trabajo por la Vivienda</h3>
-      <p>El Gobierno municipal tumba también la propuesta de crear una Mesa del Centro Histórico, rechazando dos iniciativas de 100x100 Unidos Portuenses para fomentar la participación ciudadana.</p>
-      <details>
-        <summary>Leer más</summary>
-        <div class="full">
-          <p>100x100 Unidos Portuenses lamenta que el Gobierno de Germán Beardo haya votado en contra de las dos propuestas presentadas al último Pleno para impulsar una Mesa Municipal de la Vivienda y una Mesa del Centro Histórico.</p>
-          <p>La primera iniciativa pretendía reunir a los grupos políticos, asociaciones vecinales, entidades sociales y profesionales del sector para compartir diagnósticos, plantear soluciones y hacer seguimiento de las actuaciones municipales en materia de vivienda. Una propuesta que contrasta con lo que ocurre en Jerez, también gobernado por el Partido Popular, donde la alcaldesa María José García-Pelayo ha impulsado recientemente una Mesa Local por la Vivienda.</p>
-          <p>&#8220;No entendemos que algo que el PP considera útil en Jerez aquí se rechace. La vivienda es una de las principales preocupaciones de los portuenses y creemos que no basta con los anuncios del alcalde. Hay que escuchar, compartir información y contar con quienes conocen de primera mano el problema&#8221;, señala Javier Botella.</p>
-          <p>La segunda propuesta planteaba crear una Mesa del Centro Histórico para dar voz a vecinos, comerciantes, asociaciones y profesionales, y abordar conjuntamente cuestiones como la rehabilitación, la conservación del patrimonio, la recuperación residencial y el comercio de proximidad.</p>
-          <p>Desde 100x100 Unidos Portuenses recuerdan que la participación ciudadana no es una concesión de ningún Gobierno. El artículo 69 de la Ley de Bases del Régimen Local establece que las corporaciones locales deben facilitar la participación de los ciudadanos en la vida municipal, mientras que su artículo 70 bis contempla la existencia de órganos y procedimientos adecuados para hacerla efectiva. En la misma línea, la Ley 7/2017 de Participación Ciudadana de Andalucía reconoce expresamente mecanismos como consejos, comisiones y mesas de debate.</p>
-          <p>&#8220;No pedíamos que el Gobierno aceptase todas las propuestas que pudieran surgir, sino que estuviera dispuesto a escuchar y a trabajar con los demás. El futuro de El Puerto no puede depender exclusivamente de los anuncios del Gobierno municipal. También necesita transparencia, diálogo y participación&#8221;, concluye Botella.</p>
-        </div>
-      </details>
-    </div>
-    <div class="news-card">
-      <img src="img/noticias/2026-11-04-100x100-unidos-portuenses-propone-ampliar-salas.jpg" loading="lazy" alt="Representante de 100x100 Unidos Portuenses frente a un centro cívico de El Puerto de Santa María">
-      <div class="date">4 de noviembre de 2026</div>
-      <h3>100x100 Unidos Portuenses propone ampliar las salas de estudio y crear nuevos espacios de trabajo colaborativo en El Puerto</h3>
-      <p>Francisco Belaustegui: &#8220;No basta con mantener las salas que tenemos; hay que planificar su ampliación y adaptarlas a las necesidades reales de los estudiantes&#8221;.</p>
-      <details>
-        <summary>Leer más</summary>
-        <div class="full">
-          <p>100x100 Unidos Portuenses llevará al próximo Pleno municipal una moción para impulsar la mejora y ampliación de los espacios públicos destinados al estudio y la formación en El Puerto de Santa María.</p>
-          <p>La iniciativa plantea ir más allá de las reivindicaciones relacionadas con los horarios y el funcionamiento de las salas de estudio que ya se abordaron en anteriores propuestas. En esta ocasión, el objetivo es analizar la capacidad real de las instalaciones municipales, conocer su nivel de ocupación y determinar si los recursos disponibles responden a las necesidades actuales de estudiantes y opositores.</p>
-          <p>La formación considera necesario contar con un diagnóstico actualizado que permita conocer el número efectivo de puestos, los horarios, los niveles de afluencia y la posible demanda que no está siendo atendida. A partir de esa información, propone estudiar la habilitación de nuevos espacios y evaluar posibles mejoras en los horarios, especialmente durante los periodos de exámenes.</p>
-          <p>El edil, Francisco Belaustegui, señala que &#8220;no podemos limitarnos a tener unas cuantas salas abiertas y dar por hecho que el servicio está cubierto. Hay que saber cuántas personas las utilizan, cuándo se quedan pequeñas y qué alternativas podemos ofrecer. La planificación debe hacerse pensando en los estudiantes y no simplemente en los recursos que tenemos actualmente&#8221;.</p>
-          <p>La moción también plantea ampliar el concepto de estos equipamientos municipales. La propuesta contempla estudiar una red de espacios de estudio y trabajo colaborativo que, además de puestos individuales, disponga de salas para trabajos en grupo, reuniones, conexión a internet, equipamiento informático y espacios para actividades formativas.</p>
-          <p>&#8220;Los jóvenes necesitan algo más que una mesa y una silla para estudiar. También necesitan lugares donde preparar trabajos en grupo, reunirse, formarse y desarrollar proyectos. Queremos que El Puerto avance hacia un modelo de espacios públicos más completo, contando con la opinión de los propios estudiantes, las asociaciones juveniles y los centros educativos&#8221;, añade Belaustegui.</p>
-          <p>Desde 100x100 Unidos Portuenses consideran que mejorar estos recursos supone invertir en formación, igualdad de oportunidades y futuro para la ciudad.</p>
-        </div>
-      </details>
-    </div>
-    <div class="news-card">
-      <img src="img/noticias/2026-10-03-100-100-unidos-portuenses-recoge-demandas.jpg" loading="lazy" alt="Integrantes de 100x100 Unidos Portuenses en Vallealto-El Tomillar">
-      <div class="date">3 de octubre de 2026</div>
-      <h3>100&times;100 Unidos Portuenses recoge las demandas de los vecinos de Vallealto-El Tomillar</h3>
-      <p>Montse Pecho: &#8220;No estamos pidiendo nada excepcional: los vecinos quieren limpieza, seguridad, mantenimiento y unos espacios públicos cuidados&#8221;.</p>
-      <details>
-        <summary>Leer más</summary>
-        <div class="full">
-<p>Los integrantes de 100&times;100 Unidos Portuenses han visitado la zona de Vallealto-El Tomillar para conocer de primera mano las demandas y necesidades que plantean los vecinos.</p>
-          <p>Durante la visita se trasladaron distintas cuestiones relacionadas con la limpieza, la falta de contenedores, problemas de roedores e insectos, el estado de algunos acerados y alcorques, la conservación de las zonas verdes y la señalización y marcas viales de determinadas calles.</p>
-          <p>También se plantearon actuaciones concretas en el Parque del Soberano Poder y los jardines situados hasta la calle Aliso, así como en la plazoleta entre Araucaria y El Tomillar y en el espacio existente junto a la iglesia de San Sebastián.</p>
-          <p>&#8220;Los vecinos nos están hablando de cuestiones muy concretas y muy básicas. No estamos hablando de grandes obras ni de actuaciones extraordinarias, sino de mantener adecuadamente un barrio: limpiar, cuidar las zonas verdes, conservar los espacios públicos y mejorar la seguridad vial allí donde sea necesario&#8221;, señala Montse Pecho.</p>
-          <p>Durante el encuentro también se abordó el estado de los accesos a Vallealto-El Tomillar, especialmente en la Cañada del Verdugo y la carretera del Juncal, reclamando que se estudien las actuaciones que correspondan y se prioricen aquellas que presenten mayor urgencia.</p>
-          <p>&#8220;Lo que hemos hecho es escuchar a los vecinos y recoger sus demandas. Ahora toca ordenar esas necesidades y señalar cuáles son las actuaciones más urgentes para que puedan recibir una respuesta. Algunas son cuestiones de mantenimiento cotidiano que no deberían quedar en segundo plano&#8221;, concluye Pecho.</p>
-        </div>
-      </details>
-    </div>
+  <!-- NOTICIAS AUTOMÁTICAS: estas tres tarjetas se actualizan solas al cargar la página (script del final) con las
+       tres noticias más recientes de noticias.html. Cada una lleva a la página de noticias con esa noticia desplegada.
+       Lo que hay aquí es el respaldo que se ve si el script no puede leer esa página (por ejemplo, al abrir el archivo
+       suelto desde el ordenador, sin servidor). -->
+  <div class="act-grid">
+    <article class="act-card" id="actNoticia1">
+      <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-19-100x100-unidos-portuenses-pide-explicaciones-beardo-citacion-judicial.jpg" alt="Javier Botella en declaraciones sobre la citación judicial a Germán Beardo" loading="lazy"></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-19">19 de noviembre de 2026</time></div>
+        <h3 class="act-title">100x100 Unidos Portuenses pide explicaciones a Beardo tras su citación judicial</h3>
+        <p class="act-text">La formación municipalista considera que, sin cuestionar la presunción de inocencia del alcalde, &#8220;se trata de un asunto de relevancia política que merece explicaciones ante la ciudadanía&#8221;.</p>
+        <a class="act-link" href="noticias.html#2026-11-19-explicaciones-beardo-citacion-judicial">Leer noticia &rarr;</a>
+      </div>
+    </article>
+    <article class="act-card" id="actNoticia2">
+      <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-11-100x100-unidos-portuenses-vota-en-contra-mesa-vivienda.jpg" alt="Javier Botella observando la fachada deteriorada de una vivienda" loading="lazy"></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-11">11 de noviembre de 2026</time></div>
+        <h3 class="act-title">Beardo vota en contra de crear una Mesa de trabajo por la Vivienda</h3>
+        <p class="act-text">El Gobierno municipal tumba también la propuesta de crear una Mesa del Centro Histórico, rechazando dos iniciativas de 100x100 Unidos Portuenses para fomentar la participación ciudadana.</p>
+        <a class="act-link" href="noticias.html#2026-11-11-mesa-vivienda">Leer noticia &rarr;</a>
+      </div>
+    </article>
+    <article class="act-card" id="actNoticia3">
+      <div class="act-media"><img class="act-foto" src="img/noticias/2026-11-04-100x100-unidos-portuenses-propone-ampliar-salas.jpg" alt="Representante de 100x100 Unidos Portuenses frente a un centro cívico de El Puerto de Santa María" loading="lazy"></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Noticia</span><time class="act-fechatxt" datetime="2026-11-04">4 de noviembre de 2026</time></div>
+        <h3 class="act-title">100x100 Unidos Portuenses propone ampliar las salas de estudio y crear nuevos espacios de trabajo colaborativo en El Puerto</h3>
+        <p class="act-text">Francisco Belaustegui: &#8220;No basta con mantener las salas que tenemos; hay que planificar su ampliación y adaptarlas a las necesidades reales de los estudiantes&#8221;.</p>
+        <a class="act-link" href="noticias.html#2026-11-04-salas-de-estudio">Leer noticia &rarr;</a>
+      </div>
+    </article>
   </div>
-  <div style="text-align:center; margin-top:40px;">
-    <a href="noticias.html" class="btn btn-outline">Más noticias</a>
+</section>
+
+<section id="trabajo">
+  <div class="section-head">
+    <p class="kicker">Nuestro trabajo</p>
+    <h2>Tribuna, visitas y propuestas</h2>
+  </div>
+  <!-- TRIBUNA, VISITA Y PROPUESTAS AUTOMÁTICAS: se actualizan solas con la última tribuna de tribunas.html, la próxima
+       visita de barrios.html (o la visita estándar si no hay ninguna) y el resumen de votaciones de propuestas.html. -->
+  <div class="act-grid">
+    <article class="act-card" id="actTribuna">
+      <div class="act-media act-media--tribuna"><div class="act-avatar" aria-hidden="true"><img src="img/tribunas/javier-ramirez.jpg" alt="" loading="lazy" onerror="this.remove()">JR</div></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Tribuna · Javier Ramírez</span><time class="act-fechatxt" datetime="2026-11-06">06 Nov 2026</time></div>
+        <h3 class="act-title">Decidir escuchando</h3>
+        <p class="act-text">Reflexión sobre la importancia de la participación ciudadana real en la gestión municipal y la escucha activa a pie de calle.</p>
+        <a class="act-link" href="tribunas.html">Tribunas &rarr;</a>
+      </div>
+    </article>
+
+    <article class="act-card" id="actVisita">
+      <div class="act-media act-media--agenda"><span class="act-fecha-grande">19</span><span class="act-fecha-peq">nov</span></div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Visita de barrio</span><span class="act-fechatxt">19 de noviembre | 17:00 h</span></div>
+        <h3 class="act-title">Barriada del Pilar </h3>
+        <p class="act-text">Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.</p>
+        <a class="act-link" href="barrios.html">Barrios &rarr;</a>
+      </div>
+    </article>
+
+    <article class="act-card" id="actPropuestas">
+      <div class="act-media act-media--stats"><span class="act-fecha-grande" data-p="total">18</span><span class="act-fecha-peq">propuestas al Pleno</span>
+        <div class="act-bar" aria-hidden="true"><span data-p="barra-aprobada" style="flex: 12"></span><span data-p="barra-rechazada" style="flex: 2"></span><span data-p="barra-sinvotacion" style="flex: 4"></span></div>
+      </div>
+      <div class="act-body">
+        <div class="act-meta"><span class="act-tag">Propuestas</span><span class="act-fechatxt">2026</span></div>
+        <h3 class="act-title">Lo que hemos llevado al Pleno</h3>
+        <ul class="act-stats">
+          <li><span class="act-punto act-punto--ok" aria-hidden="true"></span><strong data-p="aprobada">12</strong> aprobadas</li>
+          <li><span class="act-punto act-punto--no" aria-hidden="true"></span><strong data-p="rechazada">2</strong> rechazadas</li>
+          <li><span class="act-punto act-punto--sv" aria-hidden="true"></span><strong data-p="sinvotacion">4</strong> preguntas y ruegos sin votación</li>
+        </ul>
+        <a class="act-link" href="propuestas.html">Propuestas &rarr;</a>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -436,9 +478,11 @@
       <h4>Navegación</h4>
       <ul>
         <li><a href="#proyecto">El proyecto</a></li>
-        <li><a href="#ideario">Ideario</a></li>
-        <li><a href="#noticias">Noticias</a></li>
-        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="ideario.html">Ideario</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="tribunas.html">Tribunas</a></li>
+        <li><a href="propuestas.html">Propuestas</a></li>
+        <li><a href="barrios.html">Barrios</a></li>
         <li><a href="#unete">Participa</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -477,24 +521,125 @@
 
 
 <script>
+  /* Actualidad automática: lee noticias.html, tribunas.html, barrios.html y propuestas.html y rellena las tarjetas:
+     las 3 últimas noticias, la última tribuna, la próxima visita de barrio y el resumen de propuestas.
+     Si no puede leerlas (sin servidor o sin conexión) se quedan las tarjetas que ya hay escritas en el HTML. */
   (function () {
-    document.querySelectorAll('.news-card details').forEach(function (d) {
-      var full = d.querySelector('.full');
-      if (!full) return;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'read-less';
-      btn.textContent = 'Leer menos';
-      btn.addEventListener('click', function () {
-        d.open = false;
-        var summary = d.querySelector('summary');
-        if (summary) summary.focus({ preventScroll: true });
-        var card = d.closest('.news-card');
-        if (card) card.scrollIntoView({ block: 'nearest' });
+    var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var ABR = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    function pedir(url) {
+      return fetch(url, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(url); return r.text(); })
+        .then(function (t) { return new DOMParser().parseFromString(t, 'text/html'); });
+    }
+    function txt(el, sel) { var e = el.querySelector(sel); return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; }
+    function poner(card, sel, valor) { var e = card.querySelector(sel); if (e) e.textContent = valor; }
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    /* ---- las 3 últimas noticias ---- */
+    pedir('noticias.html').then(function (doc) {
+      var lista = [];
+      doc.querySelectorAll('.news-grid .news-card').forEach(function (c, i) {
+        var m = txt(c, '.date').match(/(\d{1,2}) de ([a-záéíóú]+) de (\d{4})/i);
+        if (!m) return;
+        var n = MESES.indexOf(m[2].toLowerCase()) + 1; if (!n) return;
+        lista.push({ c: c, i: i, iso: m[3] + '-' + ('0' + n).slice(-2) + '-' + ('0' + m[1]).slice(-2) });
       });
-      full.appendChild(btn);
-      d.classList.add('has-close');
-    });
+      lista.sort(function (a, b) { return a.iso < b.iso ? 1 : a.iso > b.iso ? -1 : a.i - b.i; });
+      lista.slice(0, 3).forEach(function (x, k) {
+        var card = document.getElementById('actNoticia' + (k + 1)); if (!card) return;
+        var mejor = x.c, img = mejor.querySelector('img'), foto = card.querySelector('.act-foto');
+        if (img && foto) { foto.setAttribute('src', img.getAttribute('src')); foto.setAttribute('alt', img.getAttribute('alt') || ''); }
+        var t = card.querySelector('time'); t.setAttribute('datetime', x.iso); t.textContent = txt(mejor, '.date');
+        poner(card, '.act-title', txt(mejor, 'h3'));
+        var p = mejor.querySelector('p'); if (p) poner(card, '.act-text', p.textContent.replace(/\s+/g, ' ').trim());
+        if (mejor.id) card.querySelector('.act-link').setAttribute('href', 'noticias.html#' + mejor.id);
+      });
+    }).catch(function () {});
+
+    /* ---- última tribuna ---- */
+    pedir('tribunas.html').then(function (doc) {
+      var mejor = null, iso = '';
+      doc.querySelectorAll('.tribuna').forEach(function (c) {
+        var t = c.querySelector('time'); if (!t) return;
+        var f = t.getAttribute('datetime') || '';
+        if (!mejor || f > iso) { mejor = c; iso = f; }
+      });
+      if (!mejor) return;
+      var card = document.getElementById('actTribuna');
+      poner(card, '.act-tag', 'Tribuna · ' + txt(mejor, '.nombre-autor'));
+      var t = card.querySelector('time'); t.setAttribute('datetime', iso); t.textContent = txt(mejor, '.fecha-flotante');
+      poner(card, '.act-title', txt(mejor, '.titular-tribuna'));
+      poner(card, '.act-text', txt(mejor, '.resumen-tribuna'));
+      var av = card.querySelector('.act-avatar'), src = mejor.querySelector('.avatar-autor img'), ini = '';
+      mejor.querySelector('.avatar-autor').childNodes.forEach(function (n) { if (n.nodeType === 3) ini += n.textContent; });
+      while (av.firstChild) av.removeChild(av.firstChild);
+      if (src) {
+        var im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.src = src.getAttribute('src');
+        im.onerror = function () { im.remove(); }; av.appendChild(im);
+      }
+      av.appendChild(document.createTextNode(ini.trim()));
+    }).catch(function () {});
+
+    /* ---- próxima visita de barrio (o la estándar) ---- */
+    function finSemana(d) {
+      var dias = d.getDay() === 0 ? 0 : 7 - d.getDay();
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate() + dias, 23, 59, 59, 999).getTime();
+    }
+    pedir('barrios.html').then(function (doc) {
+      var ahora = Date.now(), proximas = [];
+      doc.querySelectorAll('.evento').forEach(function (e) {
+        var raw = e.getAttribute('data-fecha') || '', conHora = raw.indexOf('T') > -1;
+        var d = new Date(conHora ? raw : raw + 'T00:00'); if (isNaN(d)) return;
+        var fin = new Date(e.getAttribute('data-fin') || '');
+        if (finSemana(isNaN(fin) ? d : fin) >= ahora) proximas.push({ e: e, d: d, conHora: conHora, fijo: e.hasAttribute('data-fijo') });
+      });
+      proximas.sort(function (a, b) { return a.d - b.d; });
+      var card = document.getElementById('actVisita'), media = card.querySelector('.act-media');
+      var grande, peq, cuando, titulo, texto;
+      if (!proximas.length) {
+        /* visita estándar: lunes a viernes de la semana siguiente, por la tarde */
+        var h = new Date(), dow = h.getDay();
+        var lun = new Date(h.getFullYear(), h.getMonth(), h.getDate() + (dow === 0 ? 1 : 8 - dow));
+        var vie = new Date(lun.getFullYear(), lun.getMonth(), lun.getDate() + 4);
+        var rango = lun.getMonth() === vie.getMonth()
+          ? lun.getDate() + '-' + vie.getDate() + ' de ' + MESES[lun.getMonth()]
+          : lun.getDate() + ' de ' + MESES[lun.getMonth()] + '-' + vie.getDate() + ' de ' + MESES[vie.getMonth()];
+        grande = ABR[lun.getMonth()].toUpperCase();
+        peq = lun.getMonth() === vie.getMonth() ? lun.getDate() + '-' + vie.getDate() : lun.getDate() + ' ' + ABR[lun.getMonth()] + '-' + vie.getDate() + ' ' + ABR[vie.getMonth()];
+        cuando = rango + ' | tarde'; titulo = 'Zona de El Puerto de Santa María';
+        texto = 'Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.';
+      } else {
+        var x = proximas[0], e = x.e;
+        titulo = txt(e, '.ev-titulo'); texto = txt(e, '.ev-desc');
+        if (x.fijo) {
+          var fechaTxt = txt(e, '.ev-fechatxt'), horaTxt = txt(e, '.ev-hora');
+          grande = txt(e, '.ev-dia'); peq = txt(e, '.ev-mes') || fechaTxt.split(' de ')[0];
+          cuando = fechaTxt + (horaTxt ? ' | ' + horaTxt : '');
+        } else {
+          grande = String(x.d.getDate()); peq = ABR[x.d.getMonth()];
+          cuando = cap(x.d.toLocaleDateString('es-ES', { weekday: 'long' })) + ' ' + x.d.getDate() + ' de ' + MESES[x.d.getMonth()] +
+            (x.conHora ? ' | ' + x.d.getHours() + ':' + ('0' + x.d.getMinutes()).slice(-2) + ' h' : '');
+        }
+      }
+      media.querySelector('.act-fecha-grande').textContent = grande;
+      media.querySelector('.act-fecha-peq').textContent = peq;
+      poner(card, '.act-fechatxt', cuando);
+      poner(card, '.act-title', titulo);
+      poner(card, '.act-text', texto);
+    }).catch(function () {});
+
+    /* ---- resumen de propuestas ---- */
+    pedir('propuestas.html').then(function (doc) {
+      var props = doc.querySelectorAll('.prop'); if (!props.length) return;
+      var n = { aprobada: 0, rechazada: 0, sinvotacion: 0 };
+      props.forEach(function (p) { var r = p.getAttribute('data-res'); if (n[r] !== undefined) n[r]++; });
+      var card = document.getElementById('actPropuestas');
+      card.querySelector('[data-p="total"]').textContent = props.length;
+      ['aprobada', 'rechazada', 'sinvotacion'].forEach(function (k) {
+        card.querySelector('strong[data-p="' + k + '"]').textContent = n[k];
+        card.querySelector('[data-p="barra-' + k + '"]').style.flex = String(n[k]);
+      });
+    }).catch(function () {});
   })();
 </script>
 
