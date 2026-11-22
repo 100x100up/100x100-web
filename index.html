@@ -353,7 +353,7 @@
 <section id="noticias">
   <div class="section-head">
     <p class="kicker">Actualidad</p>
-    <h2></h2>
+    <h2>Noticias</h2>
   </div>
   <!-- NOTICIAS AUTOMÁTICAS: estas tres tarjetas se actualizan solas al cargar la página (script del final) con las
        tres noticias más recientes de noticias.html. Cada una lleva a la página de noticias con esa noticia desplegada.
@@ -392,10 +392,10 @@
 
 <section id="trabajo">
   <div class="section-head">
-    <p class="kicker">Tribunas, visitas y propuestas</p>
-    <h2></h2>
+    <p class="kicker">Nuestro trabajo</p>
+    <h2>Tribuna, visitas y propuestas</h2>
   </div>
-  <!-- TRIBUNAS, VISITA Y PROPUESTAS AUTOMÁTICAS: se actualizan solas con la última tribuna de tribunas.html, la próxima
+  <!-- TRIBUNA, VISITA Y PROPUESTAS AUTOMÁTICAS: se actualizan solas con la última tribuna de tribunas.html, la próxima
        visita de barrios.html (o la visita estándar si no hay ninguna) y el resumen de votaciones de propuestas.html. -->
   <div class="act-grid">
     <article class="act-card" id="actTribuna">
@@ -581,9 +581,8 @@
     }).catch(function () {});
 
     /* ---- próxima visita de barrio (o la estándar) ---- */
-    function finSemana(d) {
-      var dias = d.getDay() === 0 ? 0 : 7 - d.getDay();
-      return new Date(d.getFullYear(), d.getMonth(), d.getDate() + dias, 23, 59, 59, 999).getTime();
+    function finDia(d) {
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999).getTime();
     }
     pedir('barrios.html').then(function (doc) {
       var ahora = Date.now(), proximas = [];
@@ -591,22 +590,16 @@
         var raw = e.getAttribute('data-fecha') || '', conHora = raw.indexOf('T') > -1;
         var d = new Date(conHora ? raw : raw + 'T00:00'); if (isNaN(d)) return;
         var fin = new Date(e.getAttribute('data-fin') || '');
-        if (finSemana(isNaN(fin) ? d : fin) >= ahora) proximas.push({ e: e, d: d, conHora: conHora, fijo: e.hasAttribute('data-fijo') });
+        if (finDia(isNaN(fin) ? d : fin) >= ahora) proximas.push({ e: e, d: d, conHora: conHora, fijo: e.hasAttribute('data-fijo') });
       });
       proximas.sort(function (a, b) { return a.d - b.d; });
       var card = document.getElementById('actVisita'), media = card.querySelector('.act-media');
       var grande, peq, cuando, titulo, texto;
       if (!proximas.length) {
-        /* visita estándar: lunes a viernes de la semana siguiente, por la tarde */
-        var h = new Date(), dow = h.getDay();
-        var lun = new Date(h.getFullYear(), h.getMonth(), h.getDate() + (dow === 0 ? 1 : 8 - dow));
-        var vie = new Date(lun.getFullYear(), lun.getMonth(), lun.getDate() + 4);
-        var rango = lun.getMonth() === vie.getMonth()
-          ? lun.getDate() + '-' + vie.getDate() + ' de ' + MESES[lun.getMonth()]
-          : lun.getDate() + ' de ' + MESES[lun.getMonth()] + '-' + vie.getDate() + ' de ' + MESES[vie.getMonth()];
-        grande = ABR[lun.getMonth()].toUpperCase();
-        peq = lun.getMonth() === vie.getMonth() ? lun.getDate() + '-' + vie.getDate() : lun.getDate() + ' ' + ABR[lun.getMonth()] + '-' + vie.getDate() + ' ' + ABR[vie.getMonth()];
-        cuando = rango + ' | tarde'; titulo = 'Zona de El Puerto de Santa María';
+        /* visita estándar: sin fecha exacta, solo el mes en curso, por la tarde */
+        var mesActual = new Date().getMonth();
+        grande = ABR[mesActual].toUpperCase(); peq = '';
+        cuando = cap(MESES[mesActual]) + ' | tarde'; titulo = 'Zona de El Puerto de Santa María';
         texto = 'Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.';
       } else {
         var x = proximas[0], e = x.e;

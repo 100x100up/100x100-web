@@ -301,14 +301,14 @@
 
            1) FECHAS (atributos de la etiqueta <article>, justo debajo):
               data-fecha = primer día (o único día).     Formato AAAA-MM-DD   (CAMBIAR)
-              data-fin   = último día del rango (la hora da igual).  Formato AAAA-MM-DD (CAMBIAR)
-              La ficha pasa sola a "Visitas realizadas" el domingo de esa semana a las 23:59.
+              data-fin   = último día de la visita (la hora da igual).  Formato AAAA-MM-DD (CAMBIAR)
+              La ficha pasa sola a "Visitas realizadas" al terminar ese día (a las 23:59).
               No borres data-fijo: indica que el texto de fecha de abajo se escribe a mano.
               Para una visita con hora exacta (p. ej. 17:00) usa mejor una ficha normal de las realizadas
               (p. ej. Los Frailes): quita "data-fijo", pon data-fecha="2026-11-19T17:00" y se rellenan solos
               día, mes y hora.
-              Si no hay ninguna visita próxima, la página muestra sola una visita estándar (Zona de El Puerto
-              de Santa María, de lunes a viernes de la semana siguiente, por la tarde), con la ubicación desactivada.
+              Si no hay ninguna visita programada, la página muestra sola una visita estándar (Zona de El Puerto
+              de Santa María, sin fecha exacta: solo el mes en curso, y por la tarde), con la ubicación desactivada.
            2) RECUADRO DE LA IZQUIERDA: número del día (19) y mes en minúscula (nov, dic...). (CAMBIAR)
            3) ZONA: el título "Zona de El Puerto de Santa María".                    (CAMBIAR)
            4) TEXTO DE FECHA: "19 de noviembre" y la franja "tarde".                  (CAMBIAR)
@@ -445,7 +445,7 @@
     <div class="ev-body">
       <div class="ev-top"><span class="ev-tag ev-tag--visita">Visita de barrio</span><span class="ev-aviso">Próxima visita</span></div>
       <h3 class="ev-titulo">Zona de El Puerto de Santa María</h3>
-      <p class="ev-cuando"><span class="ev-fechatxt">23-27 de noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">tarde</span></p>
+      <p class="ev-cuando"><span class="ev-fechatxt">Noviembre</span> <span class="ev-sep" aria-hidden="true">|</span> <span class="ev-hora">tarde</span></p>
       <p class="ev-lugar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="ev-lugar-txt">Ver ubicación en el mapa</span></p>
       <p class="ev-desc">Nos reunimos con vecinos y comerciantes de la zona para recoger propuestas y demandas.</p>
     </div>
@@ -512,10 +512,9 @@
     var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     var cards = Array.prototype.slice.call(document.querySelectorAll('.evento'));
     function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
-    /* una visita pasa a "Visitas realizadas" el domingo de su semana a las 23:59 */
-    function finSemana(d) {
-      var dias = d.getDay() === 0 ? 0 : 7 - d.getDay();
-      return new Date(d.getFullYear(), d.getMonth(), d.getDate() + dias, 23, 59, 59, 999).getTime();
+    /* una visita pasa a "Visitas realizadas" cuando termina su último día (a las 23:59) */
+    function finDia(d) {
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999).getTime();
     }
     cards.forEach(function (c) {
       var raw = c.getAttribute('data-fecha') || '';
@@ -524,7 +523,7 @@
       if (isNaN(d)) return;
       c._t = d.getTime();
       var fin = new Date(c.getAttribute('data-fin') || '');
-      c._fin = finSemana(isNaN(fin) ? d : fin);
+      c._fin = finDia(isNaN(fin) ? d : fin);
       if (c.hasAttribute('data-fijo')) return;
       var mes = d.toLocaleDateString('es-ES', { month: 'long' });
       var corto = d.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '');
@@ -546,17 +545,12 @@
     pas.forEach(function (c) { c.classList.remove('es-proximo'); listaPas.appendChild(c); });
     secPas.hidden = pas.length === 0;
 
-    /* sin visitas próximas: visita estándar, de lunes a viernes de la semana siguiente */
+    /* sin visitas programadas: visita estándar, sin fecha exacta, solo con el mes en curso */
     if (!prox.length) {
-      var h = new Date(), dow = h.getDay();
-      var lun = new Date(h.getFullYear(), h.getMonth(), h.getDate() + (dow === 0 ? 1 : 8 - dow));
-      var vie = new Date(lun.getFullYear(), lun.getMonth(), lun.getDate() + 4);
-      var rango = lun.getMonth() === vie.getMonth()
-        ? lun.getDate() + '-' + vie.getDate() + ' de ' + MESES[lun.getMonth()]
-        : lun.getDate() + ' de ' + MESES[lun.getMonth()] + '-' + vie.getDate() + ' de ' + MESES[vie.getMonth()];
+      var mesActual = new Date().getMonth();
       var est = document.getElementById('visitaEstandar').content.firstElementChild.cloneNode(true);
-      est.querySelector('.ev-dia').textContent = ABR[lun.getMonth()].toUpperCase();
-      est.querySelector('.ev-fechatxt').textContent = rango;
+      est.querySelector('.ev-dia').textContent = ABR[mesActual].toUpperCase();
+      est.querySelector('.ev-fechatxt').textContent = cap(MESES[mesActual]);
       listaProx.appendChild(est);
     }
   })();
